@@ -1,5 +1,7 @@
-public class Run{
-    public static void main(String[] args){
-        new Nothing();
-    }
+import applicationpackage.*;
+
+public class Run {
+	public static void main(String[] args) {
+		new ApartmentFinder();
+	}
 }
