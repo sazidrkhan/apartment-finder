@@ -8,9 +8,9 @@ import java.awt.event.ActionListener;
 // This class extends JFrame and implements ActionListener to handle GUI and events
 public class ApartmentFinder extends JFrame implements ActionListener {
     // Declare components
-    private JLabel welcomeText, imageLabel;
+    private JLabel welcomeText/*, imageLabel*/;
     private JButton startButton;    // Start button
-    private ImageIcon background;
+    // private ImageIcon background;
 
     // Constructor
     public ApartmentFinder() {
