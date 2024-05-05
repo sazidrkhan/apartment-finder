@@ -18,9 +18,9 @@ public class UserLogin extends JFrame implements ActionListener {
     private String username, password; // Username and password strings for the login window
     private boolean isCorrect = false; // Boolean variable to check if the login credentials are correct
 
-    private static final Color VERY_DARK_RED = new Color(180, 0, 0); // Custom color for error message text
+    private static final Color VERY_DARK_RED = new Color(180, 0, 0); // Custom color for error message text in the login window 
 
-    // Constructor for the Login class
+    // Constructor for the Login class with ApartmentFinder object as a parameter to access the main window components and methods 
     public UserLogin(ApartmentFinder apartmentFinder) {
         this.apartmentFinder = apartmentFinder;
 
@@ -95,10 +95,10 @@ public class UserLogin extends JFrame implements ActionListener {
             // Handling checkbox state change event in the ItemStateChanged method
             @Override
             public void itemStateChanged(java.awt.event.ItemEvent e) {
-                // If the checkbox is selected (checked)
+                // If the checkbox is selected (checked), showing the password as plain text
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     passwordField.setEchoChar((char) 0); // Showing the password as plain text
-                    // If the checkbox is deselected (unchecked)
+                // If the checkbox is deselected (unchecked), showing the password as masked text
                 } else {
                     passwordField.setEchoChar('#'); // Showing the password as masked text
                 }
