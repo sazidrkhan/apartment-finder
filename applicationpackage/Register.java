@@ -18,158 +18,156 @@ public class Register extends JFrame implements ActionListener {
     private JRadioButton femaleRadioButton;    // Radio button 
     private ButtonGroup genderButtonGroup;   // Button group for radio buttons
 
+    // Constructor to initialize the components and set the layout of the frame window 
     public Register(UserLogin login) {
         this.login = login;
 
-        registerText = new JLabel("Please Register...");
-        nameLabel = new JLabel("Name:");
-        usernameLabel = new JLabel("Username:");
-        ageLabel = new JLabel("Age:");
-        nidOrBidLabel = new JLabel("NID/BID No.");
-        genderLabel = new JLabel("Gender:");
-        passwordLabel = new JLabel("Password:");
-        confirmPasswordLabel = new JLabel("Confirm Password:");
+        registerText = new JLabel("Please Register...");    // Create a label with the text "Please Register..." 
+        nameLabel = new JLabel("Name:");    // Name label
+        usernameLabel = new JLabel("Username:");    // Username label
+        ageLabel = new JLabel("Age:");  // Age label
+        nidOrBidLabel = new JLabel("NID/BID No.");  // NID/BID label
+        genderLabel = new JLabel("Gender:");    // Gender label
+        passwordLabel = new JLabel("Password:");    // Password label
+        confirmPasswordLabel = new JLabel("Confirm Password:");   // Confirm password label
 
-        nameField = new JTextField();
-        usernameField = new JTextField();
-        ageField = new JTextField();
-        nidOrBidField = new JTextField();
+        nameField = new JTextField();   // Text field for the user's name
+        usernameField = new JTextField();   // Text field for the user's username
+        ageField = new JTextField();    // Text field for the user's age
+        nidOrBidField = new JTextField();   // Text field for the user's NID/BID number
 
-        passwordField = new JPasswordField();
-        confirmPasswordField = new JPasswordField();
+        passwordField = new JPasswordField();   // Password field for the password
+        confirmPasswordField = new JPasswordField();    // Password field for the confirm password
 
-        registerButton = new JButton("Register");
-        cancelButton = new JButton("Cancel");
+        registerButton = new JButton("Register");   // Register button
+        cancelButton = new JButton("Cancel");   // Cancel button
 
-        maleRadioButton = new JRadioButton("Male");
-        femaleRadioButton = new JRadioButton("Female");
+        maleRadioButton = new JRadioButton("Male"); // Male radio button
+        femaleRadioButton = new JRadioButton("Female"); // Female radio button
 
-        genderButtonGroup = new ButtonGroup();
-        genderButtonGroup.add(maleRadioButton);
-        genderButtonGroup.add(femaleRadioButton);
+        genderButtonGroup = new ButtonGroup();  // Button group for the radio buttons
+        genderButtonGroup.add(maleRadioButton); // Adding male radio button to the button group
+        genderButtonGroup.add(femaleRadioButton);   // Adding female radio button to the button group
 
-        // Set font for the components
-        Font message = new Font("Times New Roman", Font.BOLD, 26);
-        registerText.setFont(message);
+        // Creating a font object for the message label 
+        Font message = new Font("Times New Roman", Font.BOLD, 26);  
+        registerText.setFont(message);  // Setting the font for the registerText label 
 
-        // Set labelFont for the components
-        Font labelFont = new Font("Georgia", Font.BOLD, 14);
-        nameLabel.setFont(labelFont);
-        usernameLabel.setFont(labelFont);
-        ageLabel.setFont(labelFont);
-        nidOrBidLabel.setFont(labelFont);
-        passwordLabel.setFont(labelFont);
-        confirmPasswordLabel.setFont(labelFont);
-        genderLabel.setFont(labelFont);
+        // Creating a font object for the labels 
+        Font labelFont = new Font("Georgia", Font.BOLD, 14);    
+        nameLabel.setFont(labelFont);   // Setting the font for the nameLabel 
+        usernameLabel.setFont(labelFont);   // Setting the font for the usernameLabel
+        ageLabel.setFont(labelFont);    // Setting the font for the ageLabel
+        nidOrBidLabel.setFont(labelFont);   // Setting the font for the nidOrBidLabel
+        passwordLabel.setFont(labelFont);   // Setting the font for the passwordLabel
+        confirmPasswordLabel.setFont(labelFont);    // Setting the font for the confirmPasswordLabel
+        genderLabel.setFont(labelFont);   // Setting the font for the genderLabel
 
-        // Set fieldFont for the text fields
-        Font fieldFont = new Font("Georgia", Font.PLAIN, 14);
-        nameField.setFont(fieldFont);
-        usernameField.setFont(fieldFont);
-        ageField.setFont(fieldFont);
-        nidOrBidField.setFont(fieldFont);
-        passwordField.setFont(fieldFont);
-        confirmPasswordField.setFont(fieldFont);
+        // Creating a font object for the text fields 
+        Font fieldFont = new Font("Georgia", Font.PLAIN, 14);   
+        nameField.setFont(fieldFont);   // Setting the font for the nameField
+        usernameField.setFont(fieldFont);   // Setting the font for the usernameField
+        ageField.setFont(fieldFont);    // Setting the font for the ageField
+        nidOrBidField.setFont(fieldFont);   // Setting the font for the nidOrBidField
+        passwordField.setFont(fieldFont);   // Setting the font for the passwordField
+        confirmPasswordField.setFont(fieldFont);    // Setting the font for the confirmPasswordField
 
-        // Set buttonFont for the buttons
-        Font buttonFont = new Font("Georgia", Font.BOLD, 14);
-        maleRadioButton.setFont(buttonFont);
-        femaleRadioButton.setFont(buttonFont);
-        registerButton.setFont(buttonFont);
-        cancelButton.setFont(buttonFont);
+        // Creating a font object for the buttons 
+        Font buttonFont = new Font("Georgia", Font.BOLD, 14);   
+        maleRadioButton.setFont(buttonFont);    // Setting the font for the maleRadioButton
+        femaleRadioButton.setFont(buttonFont);  // Setting the font for the femaleRadioButton
+        registerButton.setFont(buttonFont);   // Setting the font for the registerButton
+        cancelButton.setFont(buttonFont);   // Setting the font for the cancelButton
 
-        // Set the background color for the radio buttons
-        maleRadioButton.setBackground(Color.lightGray);
-        femaleRadioButton.setBackground(Color.lightGray);
+        maleRadioButton.setBackground(Color.lightGray); // Setting the background color for the maleRadioButton
+        femaleRadioButton.setBackground(Color.lightGray);  // Setting the background color for the femaleRadioButton
 
 
-        showPassword = new JCheckBox("Show Password");
-        showPassword.setBackground(Color.lightGray);
+        showPassword = new JCheckBox("Show Password");  // Creating a checkbox with the text "Show Password" 
+        showPassword.setBackground(Color.lightGray);    // Setting the background color for the showPassword checkbox 
 
-        // Set bounds for the components
-        registerText.setBounds(150, 20, 250, 30);
+        registerText.setBounds(150, 20, 250, 30);   // Setting the bounds for the registerText label 
 
-        nameLabel.setBounds(50, 80, 100, 30);
-        nameField.setBounds(200, 80, 200, 30);
+        nameLabel.setBounds(50, 80, 100, 30);   // Setting the bounds for the nameLabel
+        nameField.setBounds(200, 80, 200, 30);  // Setting the bounds for the nameField
 
-        usernameLabel.setBounds(50, 120, 100, 30);
-        usernameField.setBounds(200, 120, 200, 30);
+        usernameLabel.setBounds(50, 120, 100, 30);  // Setting the bounds for the usernameLabel
+        usernameField.setBounds(200, 120, 200, 30); // Setting the bounds for the usernameField
 
-        ageLabel.setBounds(50, 160, 100, 30);
-        ageField.setBounds(200, 160, 200, 30);
+        ageLabel.setBounds(50, 160, 100, 30);   // Setting the bounds for the ageLabel
+        ageField.setBounds(200, 160, 200, 30);  // Setting the bounds for the ageField
 
-        genderLabel.setBounds(50, 200, 100, 30);
-        maleRadioButton.setBounds(200, 200, 100, 30);
-        femaleRadioButton.setBounds(300, 200, 100, 30);
+        genderLabel.setBounds(50, 200, 100, 30);    // Setting the bounds for the genderLabel
+        maleRadioButton.setBounds(200, 200, 100, 30);   // Setting the bounds for the maleRadioButton
+        femaleRadioButton.setBounds(300, 200, 100, 30); // Setting the bounds for the femaleRadioButton
 
-        nidOrBidLabel.setBounds(50, 240, 100, 30);
-        nidOrBidField.setBounds(200, 240, 200, 30);
+        nidOrBidLabel.setBounds(50, 240, 100, 30);  // Setting the bounds for the nidOrBidLabel
+        nidOrBidField.setBounds(200, 240, 200, 30); // Setting the bounds for the nidOrBidField
 
-        passwordLabel.setBounds(50, 280, 150, 30);
-        passwordField.setBounds(200, 280, 200, 30);
+        passwordLabel.setBounds(50, 280, 150, 30);  // Setting the bounds for the passwordLabel
+        passwordField.setBounds(200, 280, 200, 30); // Setting the bounds for the passwordField
 
-        confirmPasswordLabel.setBounds(50, 320, 150, 30);
-        confirmPasswordField.setBounds(200, 320, 200, 30);
+        confirmPasswordLabel.setBounds(50, 320, 150, 30);   // Setting the bounds for the confirmPasswordLabel
+        confirmPasswordField.setBounds(200, 320, 200, 30);  // Setting the bounds for the confirmPasswordField
 
-        showPassword.setBounds(200, 350, 150, 30);
+        showPassword.setBounds(200, 350, 150, 30);  // Setting the bounds for the showPassword checkbox
 
-        registerButton.setBounds(250, 400, 100, 30);
-        cancelButton.setBounds(150, 400, 100, 30);
+        registerButton.setBounds(250, 400, 100, 30);    // Setting the bounds for the registerButton
+        cancelButton.setBounds(150, 400, 100, 30);  // Setting the bounds for the cancelButton
 
-        // Add components to the frame
-        add(registerText);
-        add(new JLabel(""));
-        add(nameLabel);
-        add(nameField);
-        add(usernameLabel);
-        add(usernameField);
-        add(ageLabel);
-        add(ageField);
-        add(nidOrBidLabel);
-        add(nidOrBidField);
-        add(genderLabel);
-        add(maleRadioButton);
-        add(new JLabel(""));
-        add(femaleRadioButton);
-        add(passwordLabel);
-        add(passwordField);
-        add(confirmPasswordLabel);
-        add(confirmPasswordField);
-        add(showPassword);
-        add(new JLabel(""));
-        add(registerButton);
-        add(cancelButton);
+        add(registerText);  // Adding the registerText label to the frame window
+        add(new JLabel(""));    // Adding a blank label to the frame window
+        add(nameLabel); // Adding the nameLabel to the frame window
+        add(nameField); // Adding the nameField to the frame window
+        add(usernameLabel); // Adding the usernameLabel to the frame window
+        add(usernameField); // Adding the usernameField to the frame window
+        add(ageLabel);  // Adding the ageLabel to the frame window
+        add(ageField);  // Adding the ageField to the frame window
+        add(nidOrBidLabel); // Adding the nidOrBidLabel to the frame window
+        add(nidOrBidField); // Adding the nidOrBidField to the frame window
+        add(genderLabel);   // Adding the genderLabel to the frame window
+        add(maleRadioButton);   // Adding the maleRadioButton to the frame window
+        add(new JLabel(""));    // Adding a blank label to the frame window
+        add(femaleRadioButton); // Adding the femaleRadioButton to the frame window
+        add(passwordLabel); // Adding the passwordLabel to the frame window
+        add(passwordField); // Adding the passwordField to the frame window
+        add(confirmPasswordLabel);  // Adding the confirmPasswordLabel to the frame window
+        add(confirmPasswordField);  // Adding the confirmPasswordField to the frame window
+        add(showPassword);  // Adding the showPassword checkbox to the frame window
+        add(new JLabel(""));    // Adding a blank label to the frame window
+        add(registerButton);    // Adding the registerButton to the frame window
+        add(cancelButton);  // Adding the cancelButton to the frame window
 
-        // Add action listeners
-        registerButton.addActionListener(this);
-        cancelButton.addActionListener(this);
-        showPassword.addActionListener(this);
+        registerButton.addActionListener(this);  // Adding action listener to the registerButton
+        cancelButton.addActionListener(this);   // Adding action listener to the cancelButton
+        showPassword.addActionListener(this);   // Adding action listener to the showPassword checkbox
 
         // Showing or hiding the password based on the checkbox state
         showPassword.addActionListener(new ActionListener() {
+            // Handling checkbox state change event in the ItemStateChanged method
             @Override
             public void actionPerformed(ActionEvent e) {
+                // If the checkbox is selected (checked), show the password as plain text
                 if (showPassword.isSelected()) {
                     passwordField.setEchoChar((char) 0);
                     confirmPasswordField.setEchoChar((char) 0);
+                // If the checkbox is not selected (unchecked), showing the password as masked text
                 } else {
-                    passwordField.setEchoChar('#');
-                    confirmPasswordField.setEchoChar('#');
+                    passwordField.setEchoChar('#'); // Set the echo character to '#' for the password field
+                    confirmPasswordField.setEchoChar('#');  // Set the echo character to '#' for the confirm password field
                 }
             }
         });
 
-        // Set layout
-        setLayout(null);    // Set layout to GridLayout with 9 rows and 2 columns 
-
-        // Set frame properties
-        setTitle("Registration");   // Set title for the frame window
-        setSize(500, 500);  // Set size for the frame window
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  // Close the window when the close button is clicked
-        setLocationRelativeTo(null);    // Set the window to the center of the screen
-        // setResizable(false);    // Disable resizing of the window 
-        setVisible(true);   // Set the frame to be visible to the user
-        getContentPane().setBackground(Color.LIGHT_GRAY);   // Set background color for the frame
+        
+        // Setting frame properties
+        setTitle("Registration");   // Setting the title for the frame window
+        setSize(500, 500);  // Setting the size for the frame window
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  // Closing the window when the close button is clicked
+        setLocationRelativeTo(null);    // Setting the window to the center of the screen
+        setLayout(null);    // Setting the layout to GridLayout with 9 rows and 2 columns 
+        setVisible(true);   // Setting the frame to be visible to the user
+        getContentPane().setBackground(Color.LIGHT_GRAY);   // Setting the background color for the frame
     }
 
     // Handling button click events in the register window in the actionPerformed method
@@ -183,8 +181,6 @@ public class Register extends JFrame implements ActionListener {
             String password = new String(passwordField.getPassword());
             String confirmPassword = new String(confirmPasswordField.getPassword());
             String gender = maleRadioButton.isSelected() ? "Male" : "Female";
-
-            
 
             // Perform validation checks on the input fields
             if (name.isEmpty() || username.isEmpty() || age.isEmpty() || nidOrBid.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || (!maleRadioButton.isSelected() && !femaleRadioButton.isSelected())){
