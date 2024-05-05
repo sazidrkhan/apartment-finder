@@ -18,7 +18,7 @@ public class UserLogin extends JFrame implements ActionListener {
     private String username, password; // Username and password strings for the login window
     private boolean isCorrect = false; // Boolean variable to check if the login credentials are correct
 
-    private static final Color VERY_DARK_RED = new Color(180, 0, 0); // Custom color for error message text in the login window 
+    private static final Color VERY_DARK_RED = new Color(155, 0, 0); // Custom color for error message text in the login window 
 
     // Constructor for the Login class with ApartmentFinder object as a parameter to access the main window components and methods 
     public UserLogin(ApartmentFinder apartmentFinder) {
@@ -128,7 +128,7 @@ public class UserLogin extends JFrame implements ActionListener {
                 // Looping through each line in the file to check for the username and password match
                 while (scan.hasNextLine()) {
                     String data = scan.nextLine(); // Reading the next line from the file
-                    String[] user = data.split("||"); // Splitting the line into username and password using delimiter isCorrect to true and breaking the loop
+                    String[] user = data.split("|"); // Splitting the line into username and password using delimiter isCorrect to true and breaking the loop
                     if (username.equals(user[0]) && password.equals(user[1])) {
                         isCorrect = true; // Setting isCorrect to true if the credentials match the user data in the file
                         break; // Breaking the loop if the credentials match
