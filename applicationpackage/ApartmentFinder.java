@@ -2,14 +2,13 @@ package applicationpackage;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 // This class extends JFrame and implements ActionListener to handle GUI and events
 public class ApartmentFinder extends JFrame implements ActionListener {
     // Declare components
     private JLabel welcomeText/*, imageLabel*/;
-    private JButton startButton;    // Start button
+    private JButton startButton;
     // private ImageIcon background;
 
     // Constructor
@@ -28,11 +27,10 @@ public class ApartmentFinder extends JFrame implements ActionListener {
         // Start button
         Font buttonFont = new Font("Georgia", Font.BOLD, 14);
         startButton.setFont(buttonFont);    // Set font for the start button
-        startButton.setBackground(Color.WHITE); // Set background color for the start button
 
         // Set bounds for the components
-        welcomeText.setBounds(200, 100, 700, 50);   // Set bounds for the welcome text
-        startButton.setBounds(300, 300, 180, 30);   // Set bounds for the start button
+        welcomeText.setBounds(100, 100, 700, 50);   // Set bounds for the welcome text
+        startButton.setBounds(200, 300, 180, 30);   // Set bounds for the start button
         
         // imageLabel.setBounds(100, 120, background.getIconWidth(), background.getIconHeight());
 
@@ -44,12 +42,15 @@ public class ApartmentFinder extends JFrame implements ActionListener {
 
         // Set properties for the frame window
         setTitle("Apartment Finder");   // Window title
-        setSize(800, 600);  // Window size 
+        setSize(600, 600);  // Window size 
         setLocationRelativeTo(null);    // Set the window to the center of the screen
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   // Close the window when the close button is clicked
         setLayout(null);    // Set layout to null for absolute positioning
         setVisible(true);   // Set the frame to be visible to the user
         getContentPane().setBackground(Color.LIGHT_GRAY);   // Set background color for the frame
+
+        // Add action listener to the start button
+        startButton.addActionListener(this);
     }
 
     @Override   // Override the actionPerformed method
@@ -57,11 +58,12 @@ public class ApartmentFinder extends JFrame implements ActionListener {
         // If the start button is clicked
         if (e.getSource() == startButton) {
             setVisible(false);  // Hide the current window
-            new Login();    // Open the next window
+            new UserLogin(this);    // Open the next window
             dispose();  // Close the current window
         }
     }
 
+    // Main method to run the program 
     public static void main(String[] args) {
         new ApartmentFinder();  // Create an object of the ApartmentFinder class to display the frame
     }
