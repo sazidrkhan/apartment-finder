@@ -1,14 +1,31 @@
 package applicationpackage;
 
-public class User {
+import java.io.*;
 
-    public User(String name, String username, int ageInt, int nidOrBidInt, String password, String gender) {
-        //TODO Auto-generated constructor stub
+public class User  {
+    private String name;
+    private String username;
+    private int age;
+    private long nidOrBid;
+    private String password;
+    private String gender;
+
+    public User(String name, String username, int ageInt, String gender, long nidOrBidLong, String password) {
+        this.name = name;
+        this.username = username;
+        this.age = ageInt;
+        this.gender = gender;
+        this.nidOrBid = nidOrBidLong;
+        this.password = password;
     }
 
     public boolean registerUser() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'registerUser'");
+        try (FileWriter fileWriter = new FileWriter("database\\UserData.txt", true)) {
+            fileWriter.write(name + " $ " + username + " $ " + age + " $ " + gender + " $ " + nidOrBid + " $ " + password + System.lineSeparator());
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
-
 }
