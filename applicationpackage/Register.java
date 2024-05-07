@@ -1,8 +1,8 @@
 package applicationpackage; // Package declaration
 
-import javax.swing.*;   // Importing the javax.swing package
-import java.awt.*;   // Importing the java.awt package
-import java.awt.event.*;   // Importing the java.awt.event package
+import javax.swing.*;   // Importing the javax.swing package for GUI components
+import java.awt.*;   // Importing the java.awt package for layouts and colors
+import java.awt.event.*;   // Importing the java.awt.event package for event handling
 
 public class Register extends JFrame implements ActionListener {    // This class extends JFrame and implements ActionListener to handle GUI and events
     private UserLogin login;    // UserLogin object to access the login window components and methods 
