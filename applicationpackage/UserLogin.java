@@ -18,7 +18,7 @@ public class UserLogin extends JFrame implements ActionListener {
     private String username, password; // Username and password strings for the login window
     private boolean isCorrect = false; // Boolean variable to check if the login credentials are correct
 
-    // Constructor for the Login class with ApartmentFinder object as a parameter to access the main window components and methods 
+    // Constructor for this class with ApartmentFinder object as a parameter to access the main window components and methods 
     public UserLogin(ApartmentFinder apartmentFinder) {
         this.apartmentFinder = apartmentFinder;
 
@@ -94,12 +94,12 @@ public class UserLogin extends JFrame implements ActionListener {
                     passwordField.setEchoChar((char) 0); // Showing the password as plain text
                 // If the checkbox is deselected (unchecked), showing the password as masked text
                 } else {
-                    passwordField.setEchoChar('#'); // Showing the password as masked text
+                    passwordField.setEchoChar('$'); // Showing the password as masked text
                 }
             }
         });
 
-        setTitle("Login"); // Setting title for the login window
+        setTitle("User Login"); // Setting title for the login window
         setSize(500, 500); // Setting size for the login window
         setLocationRelativeTo(null); // Setting the window to the center of the screen
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Closing the window when the close button is clicked
@@ -122,8 +122,8 @@ public class UserLogin extends JFrame implements ActionListener {
                 // Looping through each line in the file to check for the username and password match
                 while (scan.hasNextLine()) {
                     String data = scan.nextLine(); // Reading the next line from the file
-                    String[] user = data.split(" $ "); // Splitting the line into username and password using delimiter isCorrect to true and breaking the loop
-                    if (username.equals(user[0]) && password.equals(user[1])) {
+                    String[] user = data.split(","); // Splitting the line into username and password using delimiter isCorrect to true and breaking the loop
+                    if (username.equals(user[1]) && password.equals(user[5])) {
                         isCorrect = true; // Setting isCorrect to true if the credentials match the user data in the file
                         break; // Breaking the loop if the credentials match
                     }
