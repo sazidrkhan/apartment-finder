@@ -1,13 +1,10 @@
 package applicationpackage; // Package declaration
 
-// Importing necessary libraries for the class
 import javax.swing.*;   // Importing the javax.swing package
 import java.awt.*;   // Importing the java.awt package
 import java.awt.event.*;   // Importing the java.awt.event package
 
-// This class extends JFrame and implements ActionListener to handle GUI and events
-public class Register extends JFrame implements ActionListener {
-    // Declare components
+public class Register extends JFrame implements ActionListener {    // This class extends JFrame and implements ActionListener to handle GUI and events
     private UserLogin login;    // UserLogin object to access the login window components and methods 
     private JLabel registerText, nameLabel, usernameLabel, ageLabel, nidOrBidLabel, genderLabel, passwordLabel, confirmPasswordLabel;   // Labels for the components in the frame window 
     private JTextField nameField, usernameField, ageField, nidOrBidField;  // Text fields for the user to enter data 
@@ -18,9 +15,8 @@ public class Register extends JFrame implements ActionListener {
     private JRadioButton femaleRadioButton;    // Radio button 
     private ButtonGroup genderButtonGroup;   // Button group for radio buttons
 
-    // Constructor to initialize the components and set the layout of the frame window 
-    public Register(UserLogin login) {
-        this.login = login;
+    public Register(UserLogin login) {  // Constructor to initialize the components and set the layout of the frame window 
+        this.login = login; // Assigning the login object to the class variable
 
         registerText = new JLabel("Please Register...");    // Create a label with the text "Please Register..." 
         nameLabel = new JLabel("Name:");    // Name label
@@ -49,12 +45,10 @@ public class Register extends JFrame implements ActionListener {
         genderButtonGroup.add(maleRadioButton); // Adding male radio button to the button group
         genderButtonGroup.add(femaleRadioButton);   // Adding female radio button to the button group
 
-        // Creating a font object for the message label 
-        Font message = new Font("Times New Roman", Font.BOLD, 26);  
+        Font message = new Font("Times New Roman", Font.BOLD, 26);  // Creating a font object for the message
         registerText.setFont(message);  // Setting the font for the registerText label 
 
-        // Creating a font object for the labels 
-        Font labelFont = new Font("Georgia", Font.BOLD, 14);    
+        Font labelFont = new Font("Georgia", Font.BOLD, 14);    // Creating a font object for the labels
         nameLabel.setFont(labelFont);   // Setting the font for the nameLabel 
         usernameLabel.setFont(labelFont);   // Setting the font for the usernameLabel
         ageLabel.setFont(labelFont);    // Setting the font for the ageLabel
@@ -63,8 +57,7 @@ public class Register extends JFrame implements ActionListener {
         confirmPasswordLabel.setFont(labelFont);    // Setting the font for the confirmPasswordLabel
         genderLabel.setFont(labelFont);   // Setting the font for the genderLabel
 
-        // Creating a font object for the text fields 
-        Font fieldFont = new Font("Georgia", Font.PLAIN, 14);   
+        Font fieldFont = new Font("Georgia", Font.PLAIN, 14);   // Creating a font object for the text fields
         nameField.setFont(fieldFont);   // Setting the font for the nameField
         usernameField.setFont(fieldFont);   // Setting the font for the usernameField
         ageField.setFont(fieldFont);    // Setting the font for the ageField
@@ -72,8 +65,7 @@ public class Register extends JFrame implements ActionListener {
         passwordField.setFont(fieldFont);   // Setting the font for the passwordField
         confirmPasswordField.setFont(fieldFont);    // Setting the font for the confirmPasswordField
 
-        // Creating a font object for the buttons 
-        Font buttonFont = new Font("Georgia", Font.BOLD, 14);   
+        Font buttonFont = new Font("Georgia", Font.BOLD, 14);   // Creating a font object for the buttons
         maleRadioButton.setFont(buttonFont);    // Setting the font for the maleRadioButton
         femaleRadioButton.setFont(buttonFont);  // Setting the font for the femaleRadioButton
         registerButton.setFont(buttonFont);   // Setting the font for the registerButton
@@ -142,25 +134,19 @@ public class Register extends JFrame implements ActionListener {
         cancelButton.addActionListener(this);   // Adding action listener to the cancelButton
         showPassword.addActionListener(this);   // Adding action listener to the showPassword checkbox
 
-        // Showing or hiding the password based on the checkbox state
-        showPassword.addActionListener(new ActionListener() {
-            // Handling checkbox state change event in the ItemStateChanged method
+        showPassword.addActionListener(new ActionListener() {  // Adding an action listener to the showPassword checkbox
             @Override
-            public void actionPerformed(ActionEvent e) {
-                // If the checkbox is selected (checked), show the password as plain text
-                if (showPassword.isSelected()) {
-                    passwordField.setEchoChar((char) 0);
-                    confirmPasswordField.setEchoChar((char) 0);
-                // If the checkbox is not selected (unchecked), showing the password as masked text
-                } else {
+            public void actionPerformed(ActionEvent e) {    // Overriding the actionPerformed method to handle checkbox click events
+                if (showPassword.isSelected()) {    // If the checkbox is selected (checked), showing the password as plain text
+                    passwordField.setEchoChar((char) 0);    // Setting the echo character to 0 for the password field
+                    confirmPasswordField.setEchoChar((char) 0); // Setting the echo character to 0 for the confirm password field
+                } else {    // If the checkbox is not selected (unchecked), showing the password as masked text
                     passwordField.setEchoChar('#'); // Set the echo character to '#' for the password field
                     confirmPasswordField.setEchoChar('#');  // Set the echo character to '#' for the confirm password field
                 }
             }
         });
 
-        
-        // Setting frame properties
         setTitle("Registration");   // Setting the title for the frame window
         setSize(500, 500);  // Setting the size for the frame window
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  // Closing the window when the close button is clicked
@@ -170,60 +156,56 @@ public class Register extends JFrame implements ActionListener {
         getContentPane().setBackground(Color.LIGHT_GRAY);   // Setting the background color for the frame
     }
 
-    // Handling button click events in the register window in the actionPerformed method
     @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == registerButton) {
-            String name = nameField.getText().trim();
-            String username = usernameField.getText().trim();
-            String age = ageField.getText().trim();
-            String nidOrBid = nidOrBidField.getText().trim();
-            String password = new String(passwordField.getPassword());
-            String confirmPassword = new String(confirmPasswordField.getPassword());
-            String gender = maleRadioButton.isSelected() ? "Male" : "Female";
+    public void actionPerformed(ActionEvent e) {    // Overriding the actionPerformed method to handle button click events 
+        if (e.getSource() == registerButton) {  // If the register button is clicked
+            String name = nameField.getText().trim();   // Getting the name from the nameField and removing leading and trailing whitespaces 
+            String username = usernameField.getText().trim();   // Getting the username from the usernameField and removing leading and trailing whitespaces 
+            String age = ageField.getText().trim();  // Getting the age from the ageField and removing leading and trailing whitespaces 
+            String nidOrBid = nidOrBidField.getText().trim();   // Getting the NID/BID number from the nidOrBidField and removing leading and trailing whitespaces 
+            String password = new String(passwordField.getPassword());  // Getting the password from the passwordField and converting it to a string 
+            String confirmPassword = new String(confirmPasswordField.getPassword());    // Getting the confirm password from the confirmPasswordField and converting it to a string 
+            String gender = maleRadioButton.isSelected() ? "Male" : "Female";   // Assigning "Male" if maleRadioButton is selected, otherwise assigning "Female"
 
-            // Perform validation checks on the input fields
-            if (name.isEmpty() || username.isEmpty() || age.isEmpty() || nidOrBid.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || (!maleRadioButton.isSelected() && !femaleRadioButton.isSelected())){
-                JOptionPane.showMessageDialog(this, "Please fill in all the fields", "Error", JOptionPane.ERROR_MESSAGE);
-            } else if (!password.equals(confirmPassword)) {
-                JOptionPane.showMessageDialog(this, "Passwords do not match", "Error", JOptionPane.ERROR_MESSAGE);
-            } else {
-                int ageInt = 0;
-                int nidOrBidInt = 0;
-                try {
-                    ageInt = Integer.parseInt(age);
-                    nidOrBidInt = Integer.parseInt(nidOrBid);
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(this, "Age and NID/BID No. must be valid integers", "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
+            if (name.isEmpty() || username.isEmpty() || age.isEmpty() || nidOrBid.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || (!maleRadioButton.isSelected() && !femaleRadioButton.isSelected())){  // If any of the fields are empty
+                JOptionPane.showMessageDialog(this, "Please fill in all the fields", "Error", JOptionPane.ERROR_MESSAGE);   // Showing an error message if any of the fields are empty
+            } else if (password.length() < 6) {  // If the password length is less than 6 characters
+                JOptionPane.showMessageDialog(this, "Password must be at least 6 characters long", "Error", JOptionPane.ERROR_MESSAGE);   // Showing an error message if the password length is less than 6 characters
+            } else if (!password.equals(confirmPassword)) {   // If the password and confirm password do not match
+                JOptionPane.showMessageDialog(this, "Passwords do not match", "Error", JOptionPane.ERROR_MESSAGE);  // Showing an error message if the password and confirm password do not match
+            } else {    // If the age or NID/BID number is not a valid integer
+                int ageInt = 0; // Initializing the age as an integer
+                int nidOrBidInt = 0;    // Initializing the NID/BID number as an integer
+                try {   // Parsing the age and NID/BID number to integers and handling the NumberFormatException if the input is not a valid integer 
+                    ageInt = Integer.parseInt(age); // Parsing the age to an integer
+                    nidOrBidInt = Integer.parseInt(nidOrBid);   // Parsing the NID/BID number to an integer
+                } catch (NumberFormatException ex) {    // Catching the NumberFormatException and showing an error message
+                    JOptionPane.showMessageDialog(this, "Age and NID/BID No. must be valid integers", "Error", JOptionPane.ERROR_MESSAGE);  // Showing an error message if the age or NID/BID number is not a valid integer 
+                    return; // Returning from the method
                 }
-                User user = new User(name, username, ageInt, nidOrBidInt, password, gender);
-                boolean isRegistered = user.registerUser(); // Register the user and get the status of registration
-                if (!isRegistered) {
-                    JOptionPane.showMessageDialog(this, "Registration failed", "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                } else {
-                    // Show success message
-                    JOptionPane.showMessageDialog(this, "Registration successful", "Success", JOptionPane.INFORMATION_MESSAGE);
-                    // Clear the input fields
-                    nameField.setText("");
-                    usernameField.setText("");
-                    ageField.setText("");
-                    nidOrBidField.setText("");
-                    passwordField.setText("");
-                    confirmPasswordField.setText("");
-                    maleRadioButton.setSelected(true);
+                User user = new User(name, username, ageInt, nidOrBidInt, password, gender);    // Creating a new User object with the input values 
+                boolean isRegistered = user.registerUser(); // Registering the user and getting the status of registration
+                if (!isRegistered) {    // If the registration fails 
+                    JOptionPane.showMessageDialog(this, "Registration failed", "Error", JOptionPane.ERROR_MESSAGE);  // Showing an error message if the registration fails 
+                    return; // Returning from the method
+                } else {    // If the registration is successful
+                    JOptionPane.showMessageDialog(this, "Registration successful", "Success", JOptionPane.INFORMATION_MESSAGE);   // Showing a success message if the registration is successful
+                    nameField.setText("");  // Clearing the nameField 
+                    usernameField.setText("");  // Clearing the usernameField
+                    ageField.setText("");   // Clearing the ageField
+                    nidOrBidField.setText("");  // Clearing the nidOrBidField
+                    passwordField.setText("");  // Clearing the passwordField
+                    confirmPasswordField.setText("");   // Clearing the confirmPasswordField
+                    maleRadioButton.setSelected(true);  // Selecting the maleRadioButton
                 }
             }
-        } else if (e.getSource() == cancelButton) {
-            this.setVisible(false); // Hide the current window
-            login.setVisible(true); // Show the login window
+        } else if (e.getSource() == cancelButton) {   // If the cancel button is clicked
+            this.setVisible(false); // Hiding the current window
+            login.setVisible(true); // Showing the login window
         }
     }
 
-    // Main method to run the program
-    public static void main(String[] args) {
+    public static void main(String[] args) {    // Main method to run the program
         new Register(null); // Creating an object of the Register class to display the login window
     }
-
 }
