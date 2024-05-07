@@ -1,31 +1,31 @@
-package applicationpackage;
+package applicationpackage; // Package declaration for the class
 
-import java.io.*;
+import java.io.*;   // Importing necessary libraries for the class
 
-public class User  {
-    private String name;
-    private String username;
-    private int age;
-    private long nidOrBid;
-    private String password;
-    private String gender;
+public class User  {    // This class is used to store user information and register users
+    private String name;    // Declaring variables to store user information
+    private String username;    // Declaring variables to store user information
+    private int age;    // Declaring variables to store user information
+    private long nidOrBid;  // Declaring variables to store user information
+    private String password;    // Declaring variables to store user information
+    private String gender;  // Declaring variables to store user information
 
-    public User(String name, String username, int ageInt, String gender, long nidOrBidLong, String password) {
-        this.name = name;
-        this.username = username;
-        this.age = ageInt;
-        this.gender = gender;
-        this.nidOrBid = nidOrBidLong;
-        this.password = password;
+    public User(String name, String username, int ageInt, String gender, long nidOrBidLong, String password) {  // Constructor to initialize the user object
+        this.name = name;   // Initializing the name variable
+        this.username = username;   // Initializing the username variable
+        this.age = ageInt;  // Initializing the age variable
+        this.gender = gender;   // Initializing gender variable
+        this.nidOrBid = nidOrBidLong;   // Initializing nidOrBid variable
+        this.password = password;   // Initializing password variable
     }
 
-    public boolean registerUser() {
-        try (FileWriter fileWriter = new FileWriter("database\\UserData.txt", true)) {
-            fileWriter.write(name + " $ " + username + " $ " + age + " $ " + gender + " $ " + nidOrBid + " $ " + password + System.lineSeparator());
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
+    public boolean registerUser() { // Method to register the user
+        try (FileWriter fileWriter = new FileWriter("database\\UserData.txt", true)) {  // Try block to write user information to the file UserData.txt in the database folder 
+            fileWriter.write(name + " $ " + username + " $ " + age + " $ " + gender + " $ " + nidOrBid + " $ " + password + System.lineSeparator());    // Writing user information to the file in a specific format to read later on easily 
+            return true;    // Returning true if the user is successfully registered 
+        } catch (IOException e) {   // Catch block to catch any exceptions that occur while writing to the file 
+            e.printStackTrace();    // Printing the stack trace of the exception 
+            return false;   // Returning false if the user is not successfully registered 
         }
     }
 }
