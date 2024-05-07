@@ -10,15 +10,13 @@ import java.util.Scanner;
 // Login class to authenticate users and allow them to login to the application
 public class UserLogin extends JFrame implements ActionListener {
     private ApartmentFinder apartmentFinder; // ApartmentFinder object to access the main window components and methods
-    private JLabel title, errorMessage, usernameLabel, passwordLabel; // Labels for the login window
+    private JLabel title, usernameLabel, passwordLabel; // Labels for the login window
     private JTextField usernameField; // Text fields for the login window
     private JPasswordField passwordField; // Password field for the login window
     private JCheckBox showPassword; // Checkbox to show password in the login window
     private JButton loginButton, registerButton, exitButton, adminButton; // Buttons for the login window
     private String username, password; // Username and password strings for the login window
     private boolean isCorrect = false; // Boolean variable to check if the login credentials are correct
-
-    private static final Color VERY_DARK_RED = new Color(155, 0, 0); // Custom color for error message text in the login window 
 
     // Constructor for the Login class with ApartmentFinder object as a parameter to access the main window components and methods 
     public UserLogin(ApartmentFinder apartmentFinder) {
@@ -53,25 +51,22 @@ public class UserLogin extends JFrame implements ActionListener {
 
         showPassword = new JCheckBox("Show Password"); // Show password checkbox
         showPassword.setBackground(Color.lightGray); // Setting background color for the checkbox
-        errorMessage = new JLabel(); // Error message label for invalid login credentials
-        errorMessage.setForeground(VERY_DARK_RED); // Setting text color for the error message
 
-        title.setBounds(100, 50, 300, 30); // Setting bounds for the title label
+        title.setBounds(90, 50, 310, 30); // Setting bounds for the title label
 
-        usernameLabel.setBounds(100, 100, 100, 30); // Setting bounds for the username label
-        usernameField.setBounds(200, 100, 200, 30); // Setting bounds for the username text field
+        usernameLabel.setBounds(90, 100, 100, 30); // Setting bounds for the username label
+        usernameField.setBounds(190, 100, 200, 30); // Setting bounds for the username text field
         
-        passwordLabel.setBounds(100, 150, 100, 30); // Setting bounds for the password label
-        passwordField.setBounds(200, 150, 200, 30); // Setting bounds for the password text field
+        passwordLabel.setBounds(90, 150, 100, 30); // Setting bounds for the password label
+        passwordField.setBounds(190, 150, 200, 30); // Setting bounds for the password text field
 
-        showPassword.setBounds(200, 200, 150, 30); // Setting bounds for the show password checkbox
-        errorMessage.setBounds(160, 230, 200, 30); // Setting bounds for the errorMessage label
+        showPassword.setBounds(190, 200, 150, 30); // Setting bounds for the show password checkbox
 
-        loginButton.setBounds(200, 280, 100, 30); // Setting bounds for the login button
+        loginButton.setBounds(190, 280, 100, 30); // Setting bounds for the login button
 
-        registerButton.setBounds(100, 350, 100, 30); // Setting bounds for the register button
-        exitButton.setBounds(200, 350, 100, 30); // Setting bounds for the exit button
-        adminButton.setBounds(300, 350, 100, 30); // Setting bounds for the admin button
+        registerButton.setBounds(90, 350, 100, 30); // Setting bounds for the register button
+        exitButton.setBounds(190, 350, 100, 30); // Setting bounds for the exit button
+        adminButton.setBounds(290, 350, 100, 30); // Setting bounds for the admin button
 
         add(title); // Adding the title label to the frame
         add(usernameLabel); // Adding the username label to the frame
@@ -79,7 +74,6 @@ public class UserLogin extends JFrame implements ActionListener {
         add(usernameField); // Adding the username text field to the frame
         add(passwordField); // Adding the password text field to the frame
         add(showPassword); // Adding the show password checkbox to the frame
-        add(errorMessage); // Adding the errorMessage label to the frame
         add(loginButton); // Adding the login button to the frame
         add(registerButton); // Adding the register button to the frame
         add(exitButton); // Adding the exit button to the frame
@@ -139,17 +133,25 @@ public class UserLogin extends JFrame implements ActionListener {
                 ex.printStackTrace(); // Printing the stack trace of the exception to the console
             }
             // If the login credentials are correct, hiding the login window and opening the Dashboard window
-            if (isCorrect) {
+            if (username.isEmpty() && password.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "<html><font color='red'>Please enter username and password!</font></html>", "Error", JOptionPane.ERROR_MESSAGE); // Displaying an error message dialog to the user
+            } else if (username.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "<html><font color='red'>Please enter username!</font></html>", "Error", JOptionPane.ERROR_MESSAGE); // Displaying an error message dialog to the user
+            } else if (password.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "<html><font color='red'>Please enter password!</font></html>", "Error", JOptionPane.ERROR_MESSAGE); // Displaying an error message dialog to the user
+            } else if (isCorrect) {
                 setVisible(false); // Hiding the login window after successful login
-                new Dashboard(this); // Opening the Dashboard window with the current login window as the parameter
+                new UserDashboard(this); // Opening the Dashboard window with the current login window as the parameter
                 // If the login credentials are incorrect, displaying an error message to the user
             } else {
-                errorMessage.setText("Invalid username or password!"); // Setting the error message text for invalid credentials
+                JOptionPane.showMessageDialog(this, "<html><font color='red'>Invalid username or password!</font></html>", "Error", JOptionPane.ERROR_MESSAGE); // Displaying an error message dialog to the user
                 passwordField.setText(""); // Clearing the password field after login attempt
             }
         // If the register button is clicked, hiding the login window and opening the Register window
         } else if (e.getSource() == registerButton) {
             setVisible(false); // Hiding the login window after clicking the register button
+            usernameField.setText(""); // Clearing the username field after clicking the register button
+            passwordField.setText(""); // Clearing the password field after clicking the register button
             new Register(this); // Opening the Register window with the current login window as the parameter
         // If the exit button is clicked, exiting the application
         } else if (e.getSource() == exitButton) {
