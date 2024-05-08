@@ -17,7 +17,7 @@ public class AdminLogin extends JFrame implements ActionListener {
     private String username, password; // Username and password strings for the login window
     private boolean isCorrect = false; // Boolean variable to check if the login credentials are correct
 
-    // Constructor for this class with UserLogi object as a parameter to access the main window components and methods 
+    // Constructor for this class with UserLogin object as a parameter to access the main window components and methods 
     public AdminLogin(UserLogin userLogin) {
         this.userLogin = userLogin;
 
@@ -109,36 +109,40 @@ public class AdminLogin extends JFrame implements ActionListener {
         if (e.getSource() == loginButton) {
             username = usernameField.getText(); // Getting the username entered by the user
             password = new String(passwordField.getPassword()); // Getting the password entered by the user
-            // Trying to read user data from the file and validate the login credentials
-            try {
+            String adminName = null; // Variable to store the admin name after successful login
+            
+            try {   // Trying to read user data from the file and validate the login credentials
                 File file = new File("database/AdminData.txt"); // Creating a new file object with the file path
                 Scanner scan = new Scanner(file); // Creating a new scanner object to read the file
                 // Looping through each line in the file to check for the username and password match
                 while (scan.hasNextLine()) {
                     String data = scan.nextLine(); // Reading the next line from the file
-                    String[] user = data.split(","); // Splitting the line into username and password using delimiter isCorrect to true and breaking the loop
+                    String[] user = data.split("_"); // Splitting the line into username and password using delimiter isCorrect to true and breaking the loop
                     if (username.equals(user[1]) && password.equals(user[5])) {
                         isCorrect = true; // Setting isCorrect to true if the credentials match the user data in the file
+                        adminName = user[0]; // Storing the admin name from the file data after successful login
                         break; // Breaking the loop if the credentials match
                     }
                 }
                 scan.close(); // Closing the scanner object after reading the file data Catching file not found exception if the file is not found in the specified path
             } catch (FileNotFoundException ex) {
+                JOptionPane.showMessageDialog(this, "Admin data file not found.", "Error", JOptionPane.ERROR_MESSAGE); // Displaying an error message dialog to the user if the file is not found in the specified path
                 ex.printStackTrace(); // Printing the stack trace of the exception to the console
             }
             // If the login credentials are correct, hiding the login window and opening the Dashboard window
             if (username.isEmpty() && password.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "<html><font color='red'>Please enter username and password!</font></html>", "Error", JOptionPane.ERROR_MESSAGE); // Displaying an error message dialog to the user
+                JOptionPane.showMessageDialog(this, "Please enter username and password!", "Error", JOptionPane.ERROR_MESSAGE); // Displaying an error message dialog to the user
             } else if (username.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "<html><font color='red'>Please enter username!</font></html>", "Error", JOptionPane.ERROR_MESSAGE); // Displaying an error message dialog to the user
+                JOptionPane.showMessageDialog(this, "Please enter username!", "Error", JOptionPane.ERROR_MESSAGE); // Displaying an error message dialog to the user
             } else if (password.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "<html><font color='red'>Please enter password!</font></html>", "Error", JOptionPane.ERROR_MESSAGE); // Displaying an error message dialog to the user
-            } else if (isCorrect) {
+                JOptionPane.showMessageDialog(this, "Please enter password!", "Error", JOptionPane.ERROR_MESSAGE); // Displaying an error message dialog to the user
+            } else if (isCorrect && adminName != null) {
                 setVisible(false); // Hiding the login window after successful login
-                new AdminDashboard(this); // Opening the Dashboard window with the current login window as the parameter
+                new AdminDashboard(adminName);; // Opening the AdminDashboard window with the admin name as the parameter after successful login
+                dispose();
                 // If the login credentials are incorrect, displaying an error message to the user
             } else {
-                JOptionPane.showMessageDialog(this, "<html><font color='red'>Invalid username or password!</font></html>", "Error", JOptionPane.ERROR_MESSAGE); // Displaying an error message dialog to the user
+                JOptionPane.showMessageDialog(this, "Invalid username or password!", "Error", JOptionPane.ERROR_MESSAGE); // Displaying an error message dialog to the user
                 passwordField.setText(""); // Clearing the password field after login attempt
             }
         // If the exit button is clicked, exiting the application with status code 0
@@ -156,8 +160,7 @@ public class AdminLogin extends JFrame implements ActionListener {
         }
     }
 
-    // Main method to run the program
-    public static void main(String[] args) {
+    public static void main(String[] args) {    // Main method to run the AdminLogin class
         new AdminLogin(null); // Creating an object of the AdminLogin class to display the login window
     }
 }
