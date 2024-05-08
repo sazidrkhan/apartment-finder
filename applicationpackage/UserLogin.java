@@ -115,6 +115,7 @@ public class UserLogin extends JFrame implements ActionListener {
         if (e.getSource() == loginButton) {
             username = usernameField.getText(); // Getting the username entered by the user
             password = new String(passwordField.getPassword()); // Getting the password entered by the user
+            String name = null; // Variable to store the name of the user from the file
             // Trying to read user data from the file and validate the login credentials
             try {
                 File file = new File("database/UserData.txt"); // Creating a new file object with the file path
@@ -122,14 +123,16 @@ public class UserLogin extends JFrame implements ActionListener {
                 // Looping through each line in the file to check for the username and password match
                 while (scan.hasNextLine()) {
                     String data = scan.nextLine(); // Reading the next line from the file
-                    String[] user = data.split(","); // Splitting the line into username and password using delimiter isCorrect to true and breaking the loop
+                    String[] user = data.split("_"); // Splitting the line into username and password using delimiter isCorrect to true and breaking the loop
                     if (username.equals(user[1]) && password.equals(user[5])) {
                         isCorrect = true; // Setting isCorrect to true if the credentials match the user data in the file
+                        name = user[0]; // Storing the name of the user from the file data to display in the dashboard
                         break; // Breaking the loop if the credentials match
                     }
                 }
                 scan.close(); // Closing the scanner object after reading the file data Catching file not found exception if the file is not found in the specified path
             } catch (FileNotFoundException ex) {
+                JOptionPane.showMessageDialog(this, "User data file not found.", "Error", JOptionPane.ERROR_MESSAGE); // Displaying an error message dialog to the user if the file is not found in the 
                 ex.printStackTrace(); // Printing the stack trace of the exception to the console
             }
             // If the login credentials are correct, hiding the login window and opening the Dashboard window
@@ -139,9 +142,9 @@ public class UserLogin extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "<html><font color='red'>Please enter username!</font></html>", "Error", JOptionPane.ERROR_MESSAGE); // Displaying an error message dialog to the user
             } else if (password.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "<html><font color='red'>Please enter password!</font></html>", "Error", JOptionPane.ERROR_MESSAGE); // Displaying an error message dialog to the user
-            } else if (isCorrect) {
+            } else if (isCorrect && name != null) {
                 setVisible(false); // Hiding the login window after successful login
-                new UserDashboard(this); // Opening the Dashboard window with the current login window as the parameter
+                new UserDashboard(name); // Opening the Dashboard window with the user's name as the parameter and making it visible to the user
                 // If the login credentials are incorrect, displaying an error message to the user
             } else {
                 JOptionPane.showMessageDialog(this, "<html><font color='red'>Invalid username or password!</font></html>", "Error", JOptionPane.ERROR_MESSAGE); // Displaying an error message dialog to the user
@@ -159,6 +162,8 @@ public class UserLogin extends JFrame implements ActionListener {
             apartmentFinder.dispose(); // Closing the main window after exiting the application
         } else if (e.getSource() == adminButton) {
             setVisible(false); // Hiding the login window after clicking the admin button
+            usernameField.setText(""); // Clearing the username field after clicking the register button
+            passwordField.setText(""); // Clearing the password field after clicking the register button
             new AdminLogin(this); // Opening the AdminLogin window with the current login window as the parameter
             // If the action event is invalid, displaying a message to the console
         } else {
