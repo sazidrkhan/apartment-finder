@@ -114,7 +114,7 @@ public class UserManager extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == addButton) {
-            new UserDetailForm(this, null); // Null indicates a new user
+            new UserDataManager(this, null); // Null indicates a new user
         } else if (e.getSource() == updateButton) {
             int row = userTable.getSelectedRow();
             if (row != -1) {
@@ -122,7 +122,7 @@ public class UserManager extends JFrame implements ActionListener {
                 for (int i = 0; i < data.length; i++) {
                     data[i] = tableModel.getValueAt(row, i).toString();
                 }
-                new UserDetailForm(this, data);
+                new UserDataManager(this, data);
             }
         } else if (e.getSource() == deleteButton) {
             int row = userTable.getSelectedRow();
