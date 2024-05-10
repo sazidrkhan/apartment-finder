@@ -123,7 +123,7 @@ public class UserLogin extends JFrame implements ActionListener {
                 // Looping through each line in the file to check for the username and password match
                 while (scan.hasNextLine()) {
                     String data = scan.nextLine(); // Reading the next line from the file
-                    String[] user = data.split("_"); // Splitting the line into username and password using delimiter isCorrect to true and breaking the loop
+                    String[] user = data.split(" \\$ "); // Splitting the line into username and password using delimiter isCorrect to true and breaking the loop
                     if (username.equals(user[1]) && password.equals(user[5])) {
                         isCorrect = true; // Setting isCorrect to true if the credentials match the user data in the file
                         name = user[0]; // Storing the name of the user from the file data to display in the dashboard
