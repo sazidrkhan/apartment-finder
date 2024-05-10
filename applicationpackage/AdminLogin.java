@@ -97,7 +97,7 @@ public class AdminLogin extends JFrame implements ActionListener {
         setSize(500, 500); // Setting size for the login window
         setLocationRelativeTo(null); // Setting the window to the center of the screen
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Closing the window when the close button is clicked
-        setLayout(null); // Setting layout to null for absolute positioning of components
+        setLayout(new BorderLayout()); // Setting layout to null for absolute positioning of components
         setVisible(true); // Setting the login window to be visible to the user
         getContentPane().setBackground(Color.LIGHT_GRAY); // Setting background color for the login window
     }
@@ -117,7 +117,7 @@ public class AdminLogin extends JFrame implements ActionListener {
                 // Looping through each line in the file to check for the username and password match
                 while (scan.hasNextLine()) {
                     String data = scan.nextLine(); // Reading the next line from the file
-                    String[] user = data.split("_"); // Splitting the line into username and password using delimiter isCorrect to true and breaking the loop
+                    String[] user = data.split(" \\$ ");    // Splitting the line data based on the delimiter "$" into an array of strings 
                     if (username.equals(user[1]) && password.equals(user[5])) {
                         isCorrect = true; // Setting isCorrect to true if the credentials match the user data in the file
                         adminName = user[0]; // Storing the admin name from the file data after successful login
