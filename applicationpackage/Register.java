@@ -11,8 +11,7 @@ public class Register extends JFrame implements ActionListener {    // This clas
     private JPasswordField passwordField, confirmPasswordField;   // Password fields for the user to enter data 
     private JCheckBox showPassword;   // Checkbox to show the password 
     private JButton registerButton, cancelButton;   // Buttons for the user to perform actions 
-    private JRadioButton maleRadioButton;       // Radio button
-    private JRadioButton femaleRadioButton;    // Radio button 
+    private JRadioButton maleRadioButton, femaleRadioButton;    // Radio buttons for the user to select
     private ButtonGroup genderButtonGroup;   // Button group for radio buttons
 
     public Register(UserLogin login) {  // Constructor to initialize the components and set the layout of the frame window 
