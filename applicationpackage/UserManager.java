@@ -1,67 +1,68 @@
-package applicationpackage;
+package applicationpackage; // This is the package name of the class
 
-import javax.swing.*;
-import javax.swing.table.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.io.*;
-import java.util.Scanner;
+import javax.swing.*;   // Importing javax.swing package for GUI components
+import javax.swing.table.*; // Importing javax.swing.table package for JTable
+import java.awt.*;  // Importing java.awt package for BorderLayout
+import java.awt.event.*;    // Importing java.awt.event package for ActionListener
+import java.io.*;   // Importing java.io package for File, FileWriter, PrintWriter
+import java.util.Scanner;   // Importing java.util package for Scanner
 
-public class UserManager extends JFrame implements ActionListener {
-    private JTable userTable;
-    private JButton addButton, updateButton, deleteButton, refreshButton, backButton;
-    private DefaultTableModel tableModel;
-    private AdminDashboard adminDashboard;
+public class UserManager extends JFrame implements ActionListener { // Class declaration extending JFrame and implementing ActionListener
+    private JTable userTable;   // JTable to display user data in tabular form 
+    private JButton addButton, updateButton, deleteButton, refreshButton, backButton; // JButton for adding, updating, deleting, refreshing and going back to the previous frame respectively 
+    private DefaultTableModel tableModel;   // DefaultTableModel to store user data in tabular form 
+    private AdminDashboard adminDashboard;  // AdminDashboard object to go back to the previous frame
 
-    public UserManager(AdminDashboard adminDashboard) {
-        this.adminDashboard = adminDashboard;
+    public UserManager(AdminDashboard adminDashboard) { // Constructor with AdminDashboard object as parameter 
+        this.adminDashboard = adminDashboard;   // Assigning the parameter to the instance variable
 
-        setTitle("User Manager");
-        setSize(800, 500);
-        setLayout(new BorderLayout());
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        getContentPane().setBackground(Color.LIGHT_GRAY);
+        setTitle("User Manager");   // Setting the title of the frame
+        setSize(800, 500);  // Setting the size of the frame
+        setLayout(new BorderLayout());  // Setting the layout of the frame
+        setLocationRelativeTo(null);    // Setting the location of the frame to the center of the screen
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);  // Setting the default close operation of the frame
+        getContentPane().setBackground(Color.LIGHT_GRAY);   // Setting the background color of the frame
 
-        String[] columnNames = {"Name", "Username", "Age", "Gender", "NID/BID No.", "Password"};
-        tableModel = new DefaultTableModel(columnNames, 0){
+        String[] columnNames = {"Name", "Username", "Age", "Gender", "NID/BID No.", "Password"};    // Array of column names for the table
+        tableModel = new DefaultTableModel(columnNames, 0){ // Creating a DefaultTableModel with column names and 0 rows to store user data in tabular form 
             @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
+            public boolean isCellEditable(int row, int column) {    // Overriding isCellEditable method to make cells non-editable 
+                return false;   // Returning false to make cells non-editable 
             }
         };
-        userTable = new JTable(tableModel);
-        userTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        userTable.setFont(new Font("Arial", Font.PLAIN, 14));
-        adjustColumnWidth(userTable);
-        setTableAlignment(userTable);
-        loadUsers();  // Load user data from file
+        userTable = new JTable(tableModel); // Creating a JTable with the DefaultTableModel 
+        userTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);    // Setting the selection mode of the table to single selection 
+        userTable.setFont(new Font("Arial", Font.PLAIN, 14));   // Setting the font of the table 
+        adjustColumnWidth(userTable);   // Adjusting the column width of the table
+        setTableAlignment(userTable);   // Setting the alignment of the table cells
+        add(userTable, BorderLayout.CENTER); // Adding the table to the center of the frame
+        loadUsers();    // Loading user data from file to the table
 
-        JScrollPane scrollPane = new JScrollPane(userTable);
-        scrollPane.getViewport().setBackground(Color.LIGHT_GRAY);
-        add(scrollPane, BorderLayout.CENTER);
+        JScrollPane scrollPane = new JScrollPane(userTable);    // Creating a JScrollPane with the JTable 
+        scrollPane.getViewport().setBackground(Color.LIGHT_GRAY);   // Setting the background color of the scroll pane 
+        add(scrollPane, BorderLayout.CENTER);   // Adding the scroll pane to the center of the frame 
 
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setBackground(Color.LIGHT_GRAY);
-        addButton = new JButton("Add User");
-        updateButton = new JButton("Update User");
-        deleteButton = new JButton("Delete User");
-        refreshButton = new JButton("Refresh List");
-        backButton = new JButton("Go Back");
+        JPanel buttonPanel = new JPanel();  // Creating a JPanel for buttons
+        buttonPanel.setBackground(Color.LIGHT_GRAY);    // Setting the background color of the panel
+        addButton = new JButton("Add User");    // Creating a JButton for adding user 
+        updateButton = new JButton("Update User");  // Creating a JButton for updating user
+        deleteButton = new JButton("Delete User");  // Creating a JButton for deleting user
+        refreshButton = new JButton("Refresh List");    // Creating a JButton for refreshing the list
+        backButton = new JButton("Go Back");    // Creating a JButton for going back to the previous frame
 
-        addButton.addActionListener(this);
-        updateButton.addActionListener(this);
-        deleteButton.addActionListener(this);
-        refreshButton.addActionListener(this);
-        backButton.addActionListener(this);
+        addButton.addActionListener(this);  // Adding ActionListener to the add button
+        updateButton.addActionListener(this);   // Adding ActionListener to the update button
+        deleteButton.addActionListener(this);   // Adding ActionListener to the delete button
+        refreshButton.addActionListener(this);  // Adding ActionListener to the refresh button
+        backButton.addActionListener(this); // Adding ActionListener to the back button
 
-        buttonPanel.add(addButton);
-        buttonPanel.add(updateButton);
-        buttonPanel.add(deleteButton);
-        buttonPanel.add(refreshButton);
-        buttonPanel.add(backButton);
+        buttonPanel.add(addButton); // Adding add button to the panel
+        buttonPanel.add(updateButton);  // Adding update button to the panel
+        buttonPanel.add(deleteButton);  // Adding delete button to the panel
+        buttonPanel.add(refreshButton); // Adding refresh button to the panel
+        buttonPanel.add(backButton);    // Adding back button to the panel
 
-        add(buttonPanel, BorderLayout.SOUTH);
+        add(buttonPanel, BorderLayout.SOUTH);   // Adding the button panel to the south of the frame
 
         setVisible(true);
     }
