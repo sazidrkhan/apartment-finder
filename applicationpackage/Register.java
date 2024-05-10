@@ -188,9 +188,14 @@ public class Register extends JFrame implements ActionListener {    // This clas
                     JOptionPane.showMessageDialog(this, "Please enter a valid age between 1 to 100", "Error", JOptionPane.ERROR_MESSAGE);  // Showing an error message if the age is not a valid integer between 0 and 100
                     return; // Returning from the method
                 } 
-            
+
+                if (nidOrBid.startsWith("0")) { // Checking if the NID/BID number starts with 0
+                    JOptionPane.showMessageDialog(this, "NID/BID No. cannot start with 0", "Error", JOptionPane.ERROR_MESSAGE); // Showing an error message if the NID/BID number starts with 0
+                    return; // Returning from the method
+                }
+
                 nidOrBidLong = Long.parseLong(nidOrBid); // Parsing the NID/BID number to a long
-                if (nidOrBidLong <= 0) { // Checking if the NID/BID number is a positive number (Regex: "\\d+" matches one or more digits)
+                if (nidOrBidLong <= 0) { // Checking if the NID/BID number is a positive number 
                     JOptionPane.showMessageDialog(this, "NID/BID No. must be a positive number", "Error", JOptionPane.ERROR_MESSAGE);  // Showing an error message if the NID/BID number is not a positive number
                     return; // Returning from the method
                 } 
