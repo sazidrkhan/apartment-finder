@@ -64,100 +64,98 @@ public class UserManager extends JFrame implements ActionListener { // Class dec
 
         add(buttonPanel, BorderLayout.SOUTH);   // Adding the button panel to the south of the frame
 
-        setVisible(true);
+        setVisible(true);   // Setting the frame visible to the user
     }
 
-    private void adjustColumnWidth(JTable table){
-        table.getColumnModel().getColumn(0).setPreferredWidth(200);
-        table.getColumnModel().getColumn(1).setPreferredWidth(150);
-        table.getColumnModel().getColumn(2).setPreferredWidth(40);
-        table.getColumnModel().getColumn(3).setPreferredWidth(60);
-        table.getColumnModel().getColumn(4).setPreferredWidth(150);
-        table.getColumnModel().getColumn(5).setPreferredWidth(200);
+    private void adjustColumnWidth(JTable table){   // Method to adjust the column width of the table
+        table.getColumnModel().getColumn(0).setPreferredWidth(200);  // Setting the preferred width of the first column
+        table.getColumnModel().getColumn(1).setPreferredWidth(150); // Setting the preferred width of the second column
+        table.getColumnModel().getColumn(2).setPreferredWidth(40);  // Setting the preferred width of the third column
+        table.getColumnModel().getColumn(3).setPreferredWidth(60);  // Setting the preferred width of the fourth column
+        table.getColumnModel().getColumn(4).setPreferredWidth(150); // Setting the preferred width of the fifth column
+        table.getColumnModel().getColumn(5).setPreferredWidth(200); // Setting the preferred width of the sixth column
     }
 
-    private void setTableAlignment(JTable table) {
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-        for (int i = 0; i < table.getColumnCount(); i++) {
-            table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+    private void setTableAlignment(JTable table) {  // Method to set the alignment of the table cells 
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();   // Creating a DefaultTableCellRenderer object 
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);   // Setting the horizontal alignment of the renderer to center 
+        for (int i = 0; i < table.getColumnCount(); i++) {  // Looping through the columns of the table
+            table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);    // Setting the cell renderer for each column
         }
     }
 
-    private void loadUsers() {
-        tableModel.setRowCount(0);
-        try (Scanner scanner = new Scanner(new File("database/UserData.txt"))) {
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                String[] data = line.split(" \\$ ");
-                tableModel.addRow(data);
+    private void loadUsers() {  // Method to load user data from file to the table 
+        tableModel.setRowCount(0);  // Setting the row count of the table model to 0
+        try (Scanner scanner = new Scanner(new File("database/UserData.txt"))) {    // Creating a Scanner object to read user data from the file 
+            while (scanner.hasNextLine()) { // Looping through the lines of the file
+                String line = scanner.nextLine();   // Reading a line from the file
+                String[] data = line.split(" \\$ ");    // Splitting the line based on delimiter
+                tableModel.addRow(data);    // Adding the data to the table model
             }
-        } catch (FileNotFoundException e) {
-            JOptionPane.showMessageDialog(this, "User data file not found.", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (FileNotFoundException e) {  // Catching file not found exception
+            JOptionPane.showMessageDialog(this, "User data file not found.", "Error", JOptionPane.ERROR_MESSAGE);   // Displaying an error message if the file is not found
         }
     }
 
-    public void addNewUser(String[] data) {
-        tableModel.addRow(data);
-        saveUsers(); // Save to file after adding
+    public void addNewUser(String[] data) {  // Method to add a new user to the table
+        tableModel.addRow(data);    // Adding the data to the table model
+        saveUsers();    // Saving the user data to the file
     }
 
-    public void updateUser(String[] data) {
-        int row = userTable.getSelectedRow();
-        if (row != -1) {
-            for (int i = 0; i < data.length; i++) {
-                tableModel.setValueAt(data[i], row, i);
+    public void updateUser(String[] data) { // Method to update a user in the table
+        int row = userTable.getSelectedRow();   // Getting the selected row
+        if (row != -1) {    // Checking if a row is selected
+            for (int i = 0; i < data.length; i++) {   // Looping through the data
+                tableModel.setValueAt(data[i], row, i);   // Setting the value of the cell in the table model
             }
-            saveUsers(); // Save to file after updating
+            saveUsers();   // Saving the user data to the file
         }
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == addButton) {
-            new UserDataManager(this, null); // Null indicates a new user
-        } else if (e.getSource() == updateButton) {
-            int row = userTable.getSelectedRow();
-            if (row != -1) {
-                String[] data = new String[tableModel.getColumnCount()];
-                for (int i = 0; i < data.length; i++) {
-                    data[i] = tableModel.getValueAt(row, i).toString();
+    public void actionPerformed(ActionEvent e) {    // Overriding actionPerformed method
+        if (e.getSource() == addButton) {   // Checking if the add button is clicked
+            new UserDetailForm(this, null);    // Creating a new UserDataManager object
+        } else if (e.getSource() == updateButton) {   // Checking if the update button is clicked
+            int row = userTable.getSelectedRow();   // Getting the selected row
+            if (row != -1) {    // Checking if a row is selected
+                String[] data = new String[tableModel.getColumnCount()];    // Creating an array to store the data
+                for (int i = 0; i < data.length; i++) {  // Looping through the data
+                    data[i] = tableModel.getValueAt(row, i).toString();   // Getting the value of the cell
                 }
-                new UserDataManager(this, data);
+                new UserDetailForm(this, data); // Creating a new UserDataManager object with data
             }
-        } else if (e.getSource() == deleteButton) {
-            int row = userTable.getSelectedRow();
-            if (row != -1) {
-                if (JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this user?", "Confirm", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                    tableModel.removeRow(row);
-                    saveUsers();
+        } else if (e.getSource() == deleteButton) {  // Checking if the delete button is clicked
+            int row = userTable.getSelectedRow();   // Getting the selected row
+            if (row != -1) {    // Checking if a row is selected
+                if (JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this user?", "Confirm", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {    // Displaying a confirmation dialog for deletion 
+                    tableModel.removeRow(row);  // Removing the row from the table model
+                    saveUsers();    // Saving the user data to the file
                 } 
-                
-            } else {
-                JOptionPane.showMessageDialog(this, "No user selected.", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {    // If no row is selected
+                JOptionPane.showMessageDialog(this, "No user selected.", "Error", JOptionPane.ERROR_MESSAGE);   // Displaying an error message
             }
-        } else if (e.getSource() == refreshButton) {
-            loadUsers();
-        } else if (e.getSource() == backButton) {
-            this.dispose();
-            adminDashboard.setVisible(true);
+        } else if (e.getSource() == refreshButton) {    // Checking if the refresh button is clicked
+            loadUsers();    // Loading user data from file to the table
+        } else if (e.getSource() == backButton) {   // Checking if the back button is clicked
+            this.dispose(); // Disposing the current frame
+            adminDashboard.setVisible(true);    // Setting the admin dashboard frame visible
         }
     }
 
-    private void saveUsers() {
-        try (PrintWriter out = new PrintWriter(new FileWriter("database/UserData.txt"))) {
-            for (int i = 0; i < tableModel.getRowCount(); i++) {
-                for (int j = 0; j < tableModel.getColumnCount(); j++) {
-                    out.print(tableModel.getValueAt(i, j) + (j < tableModel.getColumnCount() - 1 ? " $ " : ""));
+    private void saveUsers() {  // Method to save user data to the file
+        try (PrintWriter out = new PrintWriter(new FileWriter("database/UserData.txt"))) {  // Creating a PrintWriter object to write user data to the file
+            for (int i = 0; i < tableModel.getRowCount(); i++) {    // Looping through the rows of the table model
+                for (int j = 0; j < tableModel.getColumnCount(); j++) { // Looping through the columns of the table model
+                    out.print(tableModel.getValueAt(i, j) + (j < tableModel.getColumnCount() - 1 ? " $ " : "\n"));    // Writing the data to the file with delimiter 
                 }
-                out.println();
             }
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(this, "Failed to save user data.", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (IOException ex) {  // Catching IO exception 
+            JOptionPane.showMessageDialog(this, "Failed to save user data.", "Error", JOptionPane.ERROR_MESSAGE);   // Displaying an error message
         }
     }
 
-    public static void main(String[] args) {
-        new UserManager(null);
+    public static void main(String[] args) {    // Main method
+        new UserManager(null);  // Creating a new UserDataManager object with null parameter to test the functionality of the class
     }
 }
