@@ -6,8 +6,8 @@ import java.awt.event.*;
 
 public class UserDetailForm extends JFrame implements ActionListener {
     private UserManager userManager;
-    private JLabel operationText, nameLabel, usernameLabel, ageLabel, nidOrBidLabel, genderLabel, passwordLabel;
-    private JTextField nameField, usernameField, ageField, nidOrBidField, passwordField;
+    private JLabel operationText, uidLabel, nameLabel, usernameLabel, ageLabel, nidOrBidLabel, genderLabel, passwordLabel;
+    private JTextField uidField, nameField, usernameField, ageField, nidOrBidField, passwordField;
     private JButton saveButton, cancelButton;
     private JRadioButton maleRadioButton, femaleRadioButton;
     private ButtonGroup genderButtonGroup;
@@ -18,6 +18,7 @@ public class UserDetailForm extends JFrame implements ActionListener {
         this.originalData = data;
 
         operationText = new JLabel(data == null ? "Adding new user..." : "Updating user...");
+        uidLabel = new JLabel("UID:");
         nameLabel = new JLabel("Name:");
         usernameLabel = new JLabel("Username:");
         ageLabel = new JLabel("Age:");
@@ -31,11 +32,14 @@ public class UserDetailForm extends JFrame implements ActionListener {
         saveButton = new JButton(data == null ? "Add" : "Update");
         cancelButton = new JButton("Cancel");
 
+        uidField = new JTextField();
         nameField = new JTextField();
         usernameField = new JTextField();
         ageField = new JTextField();
         nidOrBidField = new JTextField();
         passwordField = new JTextField();
+
+        uidField.setEditable(false);
 
         genderButtonGroup = new ButtonGroup();
         genderButtonGroup.add(maleRadioButton);
@@ -45,6 +49,7 @@ public class UserDetailForm extends JFrame implements ActionListener {
         operationText.setFont(message);
 
         Font labelFont = new Font("Georgia", Font.BOLD, 14);
+        uidLabel.setFont(labelFont);
         nameLabel.setFont(labelFont);
         usernameLabel.setFont(labelFont);
         ageLabel.setFont(labelFont);
@@ -53,6 +58,7 @@ public class UserDetailForm extends JFrame implements ActionListener {
         genderLabel.setFont(labelFont);
 
         Font fieldFont = new Font("Arial", Font.PLAIN, 14);
+        uidField.setFont(fieldFont);
         nameField.setFont(fieldFont);
         usernameField.setFont(fieldFont);
         ageField.setFont(fieldFont);
@@ -70,30 +76,35 @@ public class UserDetailForm extends JFrame implements ActionListener {
 
         operationText.setBounds(150, 20, 250, 30);
 
-        nameLabel.setBounds(50, 80, 100, 30);
-        nameField.setBounds(200, 80, 200, 30);
+        uidLabel.setBounds(50, 80, 100, 30);
+        uidField.setBounds(200, 80, 200, 30);
 
-        usernameLabel.setBounds(50, 120, 100, 30);
-        usernameField.setBounds(200, 120, 200, 30);
+        nameLabel.setBounds(50, 120, 100, 30);
+        nameField.setBounds(200, 120, 200, 30);
 
-        ageLabel.setBounds(50, 160, 100, 30);
-        ageField.setBounds(200, 160, 200, 30);
+        usernameLabel.setBounds(50, 160, 100, 30);
+        usernameField.setBounds(200, 160, 200, 30);
 
-        genderLabel.setBounds(50, 200, 100, 30);
-        maleRadioButton.setBounds(200, 200, 100, 30);
-        femaleRadioButton.setBounds(300, 200, 100, 30);
+        ageLabel.setBounds(50, 200, 100, 30);
+        ageField.setBounds(200, 200, 200, 30);
 
-        nidOrBidLabel.setBounds(50, 240, 100, 30);
-        nidOrBidField.setBounds(200, 240, 200, 30);
+        genderLabel.setBounds(50, 240, 100, 30);
+        maleRadioButton.setBounds(200, 240, 100, 30);
+        femaleRadioButton.setBounds(300, 240, 100, 30);
 
-        passwordLabel.setBounds(50, 280, 150, 30);
-        passwordField.setBounds(200, 280, 200, 30);
+        nidOrBidLabel.setBounds(50, 280, 100, 30);
+        nidOrBidField.setBounds(200, 280, 200, 30);
 
-        cancelButton.setBounds(150, 400, 100, 30);
-        saveButton.setBounds(270, 400, 100, 30);
+        passwordLabel.setBounds(50, 320, 150, 30);
+        passwordField.setBounds(200, 320, 200, 30);
+
+        cancelButton.setBounds(150, 500, 100, 30);
+        saveButton.setBounds(270, 500, 100, 30);
 
         add(operationText);
         add(new JLabel(""));
+        add(uidLabel);
+        add(uidField);
         add(nameLabel);
         add(nameField);
         add(usernameLabel);
@@ -119,16 +130,19 @@ public class UserDetailForm extends JFrame implements ActionListener {
         cancelButton.addActionListener(this);
 
         if (data != null) {
-            nameField.setText(data[0]);
-            usernameField.setText(data[1]);
-            ageField.setText(data[2]);
-            nidOrBidField.setText(data[4]);
-            passwordField.setText(data[5]);
-            if ("Male".equals(data[3])) {
+            uidField.setText(data[0]);
+            nameField.setText(data[1]);
+            usernameField.setText(data[2]);
+            ageField.setText(data[3]);
+            if ("Male".equals(data[4])) {
                 maleRadioButton.setSelected(true);
-            } else if ("Female".equals(data[3])) {
+            } else if ("Female".equals(data[4])) {
                 femaleRadioButton.setSelected(true);
             }
+            nidOrBidField.setText(data[5]);
+            passwordField.setText(data[6]);
+        } else {
+            uidField.setText(Integer.toString(userManager.getNextUserID()));
         }
 
         setTitle(data == null ? "Add New User" : "Update User");
@@ -193,6 +207,7 @@ public class UserDetailForm extends JFrame implements ActionListener {
             }
 
             String[] newData = {
+                uidField.getText(),
                 nameField.getText(), 
                 usernameField.getText(), 
                 ageField.getText(), 
@@ -211,9 +226,5 @@ public class UserDetailForm extends JFrame implements ActionListener {
         } else if (e.getSource() == cancelButton) {
             dispose();
         }
-    }
-
-    public static void main(String[] args) {
-        new UserDetailForm(null, null);
     }
 }
