@@ -12,13 +12,14 @@ public class UserManager extends JFrame implements ActionListener { // Class dec
     private JButton addButton, updateButton, deleteButton, refreshButton, backButton; // JButton for adding, updating, deleting, refreshing and going back to the previous frame respectively 
     private DefaultTableModel tableModel;   // DefaultTableModel to store user data in tabular form 
     private AdminDashboard adminDashboard;  // AdminDashboard object to go back to the previous frame
+    private final String dataFilePath = "database/UserData.txt";  // File path for storing user data
 
     public UserManager(AdminDashboard adminDashboard) { // Constructor with AdminDashboard object as parameter 
         this.adminDashboard = adminDashboard;   // Assigning the parameter to the instance variable
 
         setTitle("User Manager");   // Setting the title of the frame
-        setSize(800, 500);  // Setting the size of the frame
-        setLayout(new BorderLayout());  // Setting the layout of the frame
+        setSize(800, 500);   // Setting the size of the frame
+        setLayout(new BorderLayout());   // Setting the layout of the frame
         setLocationRelativeTo(null);    // Setting the location of the frame to the center of the screen
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);  // Setting the default close operation of the frame
         getContentPane().setBackground(Color.LIGHT_GRAY);   // Setting the background color of the frame
@@ -86,7 +87,8 @@ public class UserManager extends JFrame implements ActionListener { // Class dec
 
     private void loadUsers() {  // Method to load user data from file to the table 
         tableModel.setRowCount(0);  // Setting the row count of the table model to 0
-        try (Scanner scanner = new Scanner(new File("database/UserData.txt"))) {    // Creating a Scanner object to read user data from the file 
+        File file = new File(dataFilePath); // Creating a File object with the file path
+        try (Scanner scanner = new Scanner(file)) {    // Creating a Scanner object to read user data from the file 
             while (scanner.hasNextLine()) { // Looping through the lines of the file
                 String line = scanner.nextLine();   // Reading a line from the file
                 String[] data = line.split(" \\$ ");    // Splitting the line based on delimiter
@@ -109,6 +111,18 @@ public class UserManager extends JFrame implements ActionListener { // Class dec
                 tableModel.setValueAt(data[i], row, i);   // Setting the value of the cell in the table model
             }
             saveUsers();   // Saving the user data to the file
+        }
+    }
+
+    private void saveUsers() {  // Method to save user data to the file
+        try (PrintWriter out = new PrintWriter(new FileWriter(dataFilePath))) {  // Creating a PrintWriter object to write user data to the file
+            for (int i = 0; i < tableModel.getRowCount(); i++) {    // Looping through the rows of the table model
+                for (int j = 0; j < tableModel.getColumnCount(); j++) { // Looping through the columns of the table model
+                    out.print(tableModel.getValueAt(i, j) + (j < tableModel.getColumnCount() - 1 ? " $ " : "\n"));    // Writing the data to the file with delimiter 
+                }
+            }
+        } catch (IOException ex) {  // Catching IO exception 
+            JOptionPane.showMessageDialog(this, "Failed to save user data.", "Error", JOptionPane.ERROR_MESSAGE);   // Displaying an error message
         }
     }
 
@@ -140,18 +154,6 @@ public class UserManager extends JFrame implements ActionListener { // Class dec
         } else if (e.getSource() == backButton) {   // Checking if the back button is clicked
             this.dispose(); // Disposing the current frame
             adminDashboard.setVisible(true);    // Setting the admin dashboard frame visible
-        }
-    }
-
-    private void saveUsers() {  // Method to save user data to the file
-        try (PrintWriter out = new PrintWriter(new FileWriter("database/UserData.txt"))) {  // Creating a PrintWriter object to write user data to the file
-            for (int i = 0; i < tableModel.getRowCount(); i++) {    // Looping through the rows of the table model
-                for (int j = 0; j < tableModel.getColumnCount(); j++) { // Looping through the columns of the table model
-                    out.print(tableModel.getValueAt(i, j) + (j < tableModel.getColumnCount() - 1 ? " $ " : "\n"));    // Writing the data to the file with delimiter 
-                }
-            }
-        } catch (IOException ex) {  // Catching IO exception 
-            JOptionPane.showMessageDialog(this, "Failed to save user data.", "Error", JOptionPane.ERROR_MESSAGE);   // Displaying an error message
         }
     }
 
