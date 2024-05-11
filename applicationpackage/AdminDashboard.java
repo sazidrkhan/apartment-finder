@@ -51,7 +51,7 @@ public class AdminDashboard extends JFrame implements ActionListener {
         if (e.getSource() == manageUsersButton) {
             new UserManager(this).setVisible(true);
         } else if (e.getSource() == manageApartmentsButton) {
-            new ApartmentManager().setVisible(true);
+            new ApartmentManager(this).setVisible(true);
         } else if (e.getSource() == logoutButton) {
             dispose(); // Or navigate back to the login screen
             new UserLogin(null).setVisible(true); // Assuming you want to show the login screen again
