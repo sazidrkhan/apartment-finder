@@ -56,7 +56,7 @@ public class Register extends JFrame implements ActionListener {    // This clas
         confirmPasswordLabel.setFont(labelFont);    // Setting the font for the confirmPasswordLabel
         genderLabel.setFont(labelFont);   // Setting the font for the genderLabel
     
-        Font fieldFont = new Font("Georgia", Font.PLAIN, 14);   // Creating a font object for the text fields
+        Font fieldFont = new Font("Arial", Font.PLAIN, 14);   // Creating a font object for the text fields
         nameField.setFont(fieldFont);   // Setting the font for the nameField
         usernameField.setFont(fieldFont);   // Setting the font for the usernameField
         ageField.setFont(fieldFont);    // Setting the font for the ageField
@@ -184,8 +184,8 @@ public class Register extends JFrame implements ActionListener {    // This clas
             long nidOrBidLong;  // Variable to store the NID/BID number as a long
             try {   // Try block to handle NumberFormatException
                 ageInt = Integer.parseInt(age); // Parsing the age to an integer
-                if (ageInt < 0 || ageInt >= 100) {    // Checking if the age is a valid integer between 0 and 100
-                    JOptionPane.showMessageDialog(this, "Please enter a valid age between 1 to 100", "Error", JOptionPane.ERROR_MESSAGE);  // Showing an error message if the age is not a valid integer between 0 and 100
+                if (ageInt < 18 || ageInt >= 100) {    // Checking if the age is a valid integer between 0 and 100
+                    JOptionPane.showMessageDialog(this, "Please enter a valid age between 18 to 100", "Error", JOptionPane.ERROR_MESSAGE);  // Showing an error message if the age is not a valid integer between 18 and 100
                     return; // Returning from the method
                 } 
 
