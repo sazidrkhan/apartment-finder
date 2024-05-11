@@ -1,92 +1,186 @@
 package applicationpackage;
 
 import javax.swing.*;
+import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
-import java.util.*;
+import java.util.Scanner;
 
 public class ApartmentManager extends JFrame implements ActionListener {
-    private JTextArea apartmentDisplayArea;
-    private JButton addButton, editButton, removeButton, refreshButton;
+    private AdminDashboard adminDashboard;
+    private JTable apartmentTable;
+    private JButton addButton, updateButton, deleteButton, refreshButton, backButton;
+    private DefaultTableModel tableModel;
+    private final String dataFilePath = "database/ApartmentData.txt";
 
-    public ApartmentManager() {
+    public ApartmentManager(AdminDashboard adminDashboard) {
+        this.adminDashboard = adminDashboard;
+
         setTitle("Apartment Manager");
-        setSize(350, 400);
+        setSize(910, 500);
         setLayout(new BorderLayout());
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        getContentPane().setBackground(Color.LIGHT_GRAY);
 
-        apartmentDisplayArea = new JTextArea();
-        apartmentDisplayArea.setEditable(false);
-        JScrollPane scrollPane = new JScrollPane(apartmentDisplayArea);
+        String[] columnNames = {"AID", "Image Path", "Size (sq ft)", "Price (TK)", "Status", "Address", "Description"};
+        tableModel = new DefaultTableModel(columnNames, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        apartmentTable = new JTable(tableModel);
+        apartmentTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        apartmentTable.setFont(new Font("Arial", Font.PLAIN, 14));
+        adjustColumnWidth(apartmentTable);
+        setTableAlignment(apartmentTable);
+        add(apartmentTable, BorderLayout.CENTER);
+        loadApartments();
 
+        JScrollPane scrollPane = new JScrollPane(apartmentTable);
+        scrollPane.getViewport().setBackground(Color.LIGHT_GRAY);
+        add(scrollPane, BorderLayout.CENTER);
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setBackground(Color.LIGHT_GRAY);
         addButton = new JButton("Add Apartment");
-        editButton = new JButton("Edit Apartment");
-        removeButton = new JButton("Remove Apartment");
-        refreshButton = new JButton("Refresh");
+        updateButton = new JButton("Update Apartment");
+        deleteButton = new JButton("Delete Apartment");
+        refreshButton = new JButton("Refresh List");
+        backButton = new JButton("Go Back");
 
         addButton.addActionListener(this);
-        editButton.addActionListener(this);
-        removeButton.addActionListener(this);
+        updateButton.addActionListener(this);
+        deleteButton.addActionListener(this);
         refreshButton.addActionListener(this);
+        backButton.addActionListener(this);
 
-        JPanel buttonPanel = new JPanel(new FlowLayout());
         buttonPanel.add(addButton);
-        buttonPanel.add(editButton);
-        buttonPanel.add(removeButton);
+        buttonPanel.add(updateButton);
+        buttonPanel.add(deleteButton);
         buttonPanel.add(refreshButton);
+        buttonPanel.add(backButton);
 
-        add(scrollPane, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
 
-        loadApartments();
+        setVisible(true);
+    }
+
+    private void adjustColumnWidth(JTable table){
+        table.getColumnModel().getColumn(0).setMinWidth(40);
+        table.getColumnModel().getColumn(1).setMinWidth(170);
+        table.getColumnModel().getColumn(2).setMinWidth(70);
+        table.getColumnModel().getColumn(3).setMinWidth(70);
+        table.getColumnModel().getColumn(4).setMinWidth(140);
+        table.getColumnModel().getColumn(5).setMinWidth(210);
+        table.getColumnModel().getColumn(6).setMinWidth(170);
+
+        table.getColumnModel().getColumn(1).setPreferredWidth(250);
+        table.getColumnModel().getColumn(5).setPreferredWidth(300);
+
+        table.getColumnModel().getColumn(0).setMaxWidth(50);
+        table.getColumnModel().getColumn(1).setMaxWidth(250);
+        table.getColumnModel().getColumn(2).setMaxWidth(80);
+        table.getColumnModel().getColumn(3).setMaxWidth(80);
+        table.getColumnModel().getColumn(4).setMaxWidth(150);
+        table.getColumnModel().getColumn(5).setMaxWidth(300);
+    }
+    
+    private void setTableAlignment(JTable table) {
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
     }
 
     private void loadApartments() {
-        apartmentDisplayArea.setText("");  // Clear the area to avoid duplication
-        try (Scanner scanner = new Scanner(new File("database/ApartmentsData.txt"))) {
-            while (scanner.hasNextLine()) {
-                apartmentDisplayArea.append(scanner.nextLine() + "\n");
+        tableModel.setRowCount(0);
+        try (Scanner scan = new Scanner(new File(dataFilePath))) {
+            while (scan.hasNextLine()) {
+                String line = scan.nextLine();
+                String[] data = line.split(" \\$ ");
+                tableModel.addRow(data);
             }
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(this, "Apartment data file not found.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == addButton) {
-            // Open a dialog or another frame to add a new apartment
-            addApartment();
-        } else if (e.getSource() == editButton) {
-            // Open a dialog or another frame to edit an existing apartment
-            editApartment();
-        } else if (e.getSource() == removeButton) {
-            // Confirm before removing an apartment
-            removeApartment();
-        } else if (e.getSource() == refreshButton) {
-            loadApartments();  // Reload apartment listings from file
+    public void addNewApartment(String[] data) {
+        tableModel.addRow(data);
+        saveApartments();
+    }
+
+    public void updateApartment(String[] data) {
+        int row = apartmentTable.getSelectedRow();
+        if (row != -1) {
+            for (int i = 0; i < data.length; i++) {
+                tableModel.setValueAt(data[i], row, i);
+            }
+            saveApartments();
         }
     }
 
-    private void addApartment() {
-        // Implementation for adding a new apartment
-        // This could involve opening a new dialog window where you input the details
-        // Then write those details into `ApartmentsData.txt`
+    private void saveApartments() {
+        try (PrintWriter out = new PrintWriter(new FileWriter(dataFilePath))) {
+            for (int i = 0; i < tableModel.getRowCount(); i++) {
+                for (int j = 0; j < tableModel.getColumnCount(); j++) {
+                    out.print(tableModel.getValueAt(i, j) + (j < tableModel.getColumnCount() - 1 ? " $ " : "\n"));
+                }
+            }
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Failed to save apartment data.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
-    private void editApartment() {
-        // Implementation for editing an existing apartment
-        // This might involve selecting an apartment from the list and then opening a dialog with the details pre-filled
-        // After editing, update the details in the file
+    public int getNextApartmentID() {
+        int maxID = 0;
+        for (int i = 0; i < tableModel.getRowCount(); i++) {
+            int currentId = Integer.parseInt(tableModel.getValueAt(i, 0).toString());
+            if (currentId > maxID) {
+                maxID = currentId;
+            }
+        }
+        return maxID + 1;
     }
 
-    private void removeApartment() {
-        // Implementation for removing an existing apartment
-        // Typically involves selecting the apartment from the list, confirming the deletion, and then updating the file
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == addButton) {
+            new ApartmentDetailForm(this, null);
+        } else if (e.getSource() == updateButton) {
+            int row = apartmentTable.getSelectedRow();
+            if (row != -1) {
+                String[] data = new String[tableModel.getColumnCount()];
+                for (int i = 0; i < data.length; i++) {
+                    data[i] = tableModel.getValueAt(row, i).toString();
+                }
+                new ApartmentDetailForm(this, data);
+            } else {
+                JOptionPane.showMessageDialog(this, "No apartment selected.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else if (e.getSource() == deleteButton) {
+            int row = apartmentTable.getSelectedRow();
+            if (row != -1) {
+                if (JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this apartment?", "Confirm", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                    tableModel.removeRow(row);
+                    saveApartments();
+                } 
+            } else {
+                JOptionPane.showMessageDialog(this, "No apartment selected.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else if (e.getSource() == refreshButton) {
+            loadApartments();
+        } else if (e.getSource() == backButton) {
+            this.dispose();
+            adminDashboard.setVisible(true);
+        }
     }
 
     public static void main(String[] args) {
-        new ApartmentManager();
+        new ApartmentManager(null);
     }
 }
