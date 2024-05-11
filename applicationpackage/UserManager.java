@@ -24,7 +24,7 @@ public class UserManager extends JFrame implements ActionListener { // Class dec
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);  // Setting the default close operation of the frame
         getContentPane().setBackground(Color.LIGHT_GRAY);   // Setting the background color of the frame
 
-        String[] columnNames = {"Name", "Username", "Age", "Gender", "NID/BID No.", "Password"};    // Array of column names for the table
+        String[] columnNames = {"UID", "Name", "Username", "Age", "Gender", "NID/BID No.", "Password"};    // Array of column names for the table
         tableModel = new DefaultTableModel(columnNames, 0){ // Creating a DefaultTableModel with column names and 0 rows to store user data in tabular form 
             @Override
             public boolean isCellEditable(int row, int column) {    // Overriding isCellEditable method to make cells non-editable 
@@ -69,12 +69,13 @@ public class UserManager extends JFrame implements ActionListener { // Class dec
     }
 
     private void adjustColumnWidth(JTable table){   // Method to adjust the column width of the table
-        table.getColumnModel().getColumn(0).setPreferredWidth(200);  // Setting the preferred width of the first column
-        table.getColumnModel().getColumn(1).setPreferredWidth(150); // Setting the preferred width of the second column
-        table.getColumnModel().getColumn(2).setPreferredWidth(40);  // Setting the preferred width of the third column
-        table.getColumnModel().getColumn(3).setPreferredWidth(60);  // Setting the preferred width of the fourth column
-        table.getColumnModel().getColumn(4).setPreferredWidth(150); // Setting the preferred width of the fifth column
-        table.getColumnModel().getColumn(5).setPreferredWidth(200); // Setting the preferred width of the sixth column
+        table.getColumnModel().getColumn(0).setPreferredWidth(40);  // Setting the preferred width of the first column
+        table.getColumnModel().getColumn(1).setPreferredWidth(200); // Setting the preferred width of the second column
+        table.getColumnModel().getColumn(2).setPreferredWidth(150);  // Setting the preferred width of the third column
+        table.getColumnModel().getColumn(3).setPreferredWidth(40);  // Setting the preferred width of the fourth column
+        table.getColumnModel().getColumn(4).setPreferredWidth(60); // Setting the preferred width of the fifth column
+        table.getColumnModel().getColumn(5).setPreferredWidth(150); // Setting the preferred width of the sixth column
+        table.getColumnModel().getColumn(6).setPreferredWidth(200); // Setting the preferred width of the seventh column
     }
 
     private void setTableAlignment(JTable table) {  // Method to set the alignment of the table cells 
@@ -87,8 +88,7 @@ public class UserManager extends JFrame implements ActionListener { // Class dec
 
     private void loadUsers() {  // Method to load user data from file to the table 
         tableModel.setRowCount(0);  // Setting the row count of the table model to 0
-        File file = new File(dataFilePath); // Creating a File object with the file path
-        try (Scanner scanner = new Scanner(file)) {    // Creating a Scanner object to read user data from the file 
+        try (Scanner scanner = new Scanner(new File(dataFilePath))) {    // Creating a Scanner object to read user data from the file 
             while (scanner.hasNextLine()) { // Looping through the lines of the file
                 String line = scanner.nextLine();   // Reading a line from the file
                 String[] data = line.split(" \\$ ");    // Splitting the line based on delimiter
@@ -124,6 +124,17 @@ public class UserManager extends JFrame implements ActionListener { // Class dec
         } catch (IOException ex) {  // Catching IO exception 
             JOptionPane.showMessageDialog(this, "Failed to save user data.", "Error", JOptionPane.ERROR_MESSAGE);   // Displaying an error message
         }
+    }
+
+    public int getNextUserID() {   // Method to get the next user ID
+        int maxID = 0;   // Initializing the maximum ID to 0
+        for (int i = 0; i < tableModel.getRowCount(); i++) {    // Looping through the rows of the table model
+            int currentId = Integer.parseInt(tableModel.getValueAt(i, 0).toString());    // Getting the ID from the table model
+            if (currentId > maxID) {   // Checking if the ID is greater than the maximum ID
+                maxID = currentId; // Updating the maximum ID
+            }
+        }
+        return maxID + 1;   // Returning the next ID
     }
 
     @Override
