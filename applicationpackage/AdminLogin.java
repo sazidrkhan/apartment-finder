@@ -61,8 +61,8 @@ public class AdminLogin extends JFrame implements ActionListener {
 
         loginButton.setBounds(190, 280, 100, 30); // Setting bounds for the login button
 
-        exitButton.setBounds(190, 350, 100, 30); // Setting bounds for the exit button
-        cancelButton.setBounds(290, 350, 100, 30); // Setting bounds for the admin button
+        exitButton.setBounds(130, 350, 100, 30); // Setting bounds for the exit button
+        cancelButton.setBounds(250, 350, 100, 30); // Setting bounds for the admin button
 
         add(title); // Adding the title label to the frame
         add(usernameLabel); // Adding the username label to the frame
@@ -109,7 +109,7 @@ public class AdminLogin extends JFrame implements ActionListener {
         if (e.getSource() == loginButton) {
             username = usernameField.getText(); // Getting the username entered by the user
             password = new String(passwordField.getPassword()); // Getting the password entered by the user
-            String adminName = null; // Variable to store the admin name after successful login
+            String name = null; // Variable to store the admin name after successful login
             
             try {   // Trying to read user data from the file and validate the login credentials
                 File file = new File("database/AdminData.txt"); // Creating a new file object with the file path
@@ -117,10 +117,10 @@ public class AdminLogin extends JFrame implements ActionListener {
                 // Looping through each line in the file to check for the username and password match
                 while (scan.hasNextLine()) {
                     String data = scan.nextLine(); // Reading the next line from the file
-                    String[] user = data.split(" \\$ ");    // Splitting the line data based on the delimiter "$" into an array of strings 
-                    if (username.equals(user[1]) && password.equals(user[5])) {
-                        isCorrect = true; // Setting isCorrect to true if the credentials match the user data in the file
-                        adminName = user[0]; // Storing the admin name from the file data after successful login
+                    String[] admin = data.split(" \\$ ");    // Splitting the line data based on the delimiter "$" into an array of strings 
+                    if (username.equals(admin[2]) && password.equals(admin[6])) {
+                        isCorrect = true; // Setting isCorrect to true if the credentials match the admin data in the file
+                        name = admin[1]; // Storing the admin name from the file data after successful login
                         break; // Breaking the loop if the credentials match
                     }
                 }
@@ -136,9 +136,9 @@ public class AdminLogin extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "Please enter username!", "Error", JOptionPane.ERROR_MESSAGE); // Displaying an error message dialog to the user
             } else if (password.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Please enter password!", "Error", JOptionPane.ERROR_MESSAGE); // Displaying an error message dialog to the user
-            } else if (isCorrect && adminName != null) {
+            } else if (isCorrect && name != null) {
                 setVisible(false); // Hiding the login window after successful login
-                new AdminDashboard(adminName);; // Opening the AdminDashboard window with the admin name as the parameter after successful login
+                new AdminDashboard(name);; // Opening the AdminDashboard window with the admin name as the parameter after successful login
                 dispose();
                 // If the login credentials are incorrect, displaying an error message to the user
             } else {
