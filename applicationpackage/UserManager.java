@@ -144,11 +144,15 @@ public class UserManager extends JFrame implements ActionListener { // Class dec
         } else if (e.getSource() == updateButton) {   // Checking if the update button is clicked
             int row = userTable.getSelectedRow();   // Getting the selected row
             if (row != -1) {    // Checking if a row is selected
-                String[] data = new String[tableModel.getColumnCount()];    // Creating an array to store the data
-                for (int i = 0; i < data.length; i++) {  // Looping through the data
-                    data[i] = tableModel.getValueAt(row, i).toString();   // Getting the value of the cell
+                if (JOptionPane.showConfirmDialog(this, "Are you sure you want to update this user?", "Confirm", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {    // Displaying a confirmation dialog for update
+                    String[] data = new String[tableModel.getColumnCount()];    // Creating an array to store the data
+                    for (int i = 0; i < data.length; i++) {  // Looping through the data
+                        data[i] = tableModel.getValueAt(row, i).toString();   // Getting the value of the cell
+                    }
+                    new UserDetailForm(this, data); // Creating a new UserDataManager object with data
                 }
-                new UserDetailForm(this, data); // Creating a new UserDataManager object with data
+            } else {
+                JOptionPane.showMessageDialog(this, "No user selected.", "Error", JOptionPane.ERROR_MESSAGE);   // Displaying an error message
             }
         } else if (e.getSource() == deleteButton) {  // Checking if the delete button is clicked
             int row = userTable.getSelectedRow();   // Getting the selected row
