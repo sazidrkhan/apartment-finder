@@ -154,11 +154,13 @@ public class ApartmentManager extends JFrame implements ActionListener {
         } else if (e.getSource() == updateButton) {
             int row = apartmentTable.getSelectedRow();
             if (row != -1) {
-                String[] data = new String[tableModel.getColumnCount()];
-                for (int i = 0; i < data.length; i++) {
-                    data[i] = tableModel.getValueAt(row, i).toString();
+                if (JOptionPane.showConfirmDialog(this, "Are you sure you want to update this apartment?", "Confirm", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                    String[] data = new String[tableModel.getColumnCount()];
+                    for (int i = 0; i < data.length; i++) {
+                        data[i] = tableModel.getValueAt(row, i).toString();
+                    }
+                    new ApartmentDetailForm(this, data);
                 }
-                new ApartmentDetailForm(this, data);
             } else {
                 JOptionPane.showMessageDialog(this, "No apartment selected.", "Error", JOptionPane.ERROR_MESSAGE);
             }
