@@ -1,6 +1,5 @@
 package applicationpackage;
 
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,7 +9,7 @@ public class AdminDashboard extends JFrame implements ActionListener {
     private JButton manageUsersButton, manageApartmentsButton, logoutButton, refreshButton;
     private JLabel welcomeLabel;
 
-    public AdminDashboard(String adminName) {
+    public AdminDashboard(String name) {
         setTitle("Admin Dashboard");
         setSize(500, 500);
         setLayout(new BorderLayout());
@@ -18,7 +17,7 @@ public class AdminDashboard extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Welcome label displays the admin's name
-        welcomeLabel = new JLabel("Welcome, " + adminName + "!", SwingConstants.CENTER);
+        welcomeLabel = new JLabel("Welcome, " + name + "!", SwingConstants.CENTER);
         welcomeLabel.setFont(new Font("New ", Font.BOLD, 16));
 
         // Buttons
