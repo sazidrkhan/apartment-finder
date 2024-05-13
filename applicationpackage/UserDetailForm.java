@@ -98,8 +98,8 @@ public class UserDetailForm extends JFrame implements ActionListener {
         passwordLabel.setBounds(50, 320, 150, 30);
         passwordField.setBounds(200, 320, 200, 30);
 
-        cancelButton.setBounds(150, 500, 100, 30);
-        saveButton.setBounds(270, 500, 100, 30);
+        cancelButton.setBounds(150, 400, 100, 30);
+        saveButton.setBounds(270, 400, 100, 30);
 
         add(operationText);
         add(new JLabel(""));
