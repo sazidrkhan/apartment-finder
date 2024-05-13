@@ -62,16 +62,16 @@ public class ApartmentDetailForm extends JFrame implements ActionListener {
         add(new JLabel(""));
         add(idLabel);
         add(idField);
-        add(addressLabel);
-        add(addressField);
+        add(imagePathLabel);
+        add(imagePathField);
         add(sizeLabel);
         add(sizeField);
         add(priceLabel);
         add(priceField);
         add(statusLabel);
         add(statusComboBox);
-        add(imagePathLabel);
-        add(imagePathField);
+        add(addressLabel);
+        add(addressField);
         add(descriptionLabel);
         add(descriptionField);
         add(cancelButton);
@@ -82,11 +82,11 @@ public class ApartmentDetailForm extends JFrame implements ActionListener {
 
         if (data != null) {
             idField.setText(data[0]);
-            addressField.setText(data[1]);
+            imagePathField.setText(data[1]);
             sizeField.setText(data[2]);
             priceField.setText(data[3]);
             statusComboBox.setSelectedItem(data[4]);
-            imagePathField.setText(data[5]);
+            addressField.setText(data[5]);
             descriptionField.setText(data[6]);
         } else {
             idField.setText(Integer.toString(apartmentManager.getNextApartmentID()));
@@ -105,11 +105,11 @@ public class ApartmentDetailForm extends JFrame implements ActionListener {
         if (e.getSource() == saveButton) {
             String[] newData = {
                 idField.getText(),
-                addressField.getText(),
+                imagePathField.getText(),
                 sizeField.getText(),
                 priceField.getText(),
                 statusComboBox.getSelectedItem().toString(),
-                imagePathField.getText(),
+                addressField.getText(),
                 descriptionField.getText()
             };
 
