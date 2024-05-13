@@ -1,0 +1,7 @@
+1 $ images/apartment-1.jpg $ 900 $ 1200 $ Available $ 123 Maple Street, Anytown $ sfghsdfgsdfgsdfgsdfgsdfgsdfg
+2 $ images/apartment-2.jpg $ 1100 $ 1500 $ Rented $ 456 Oak Avenue, Othertown $ sdfgsdfgsdfgsdfgsdfgsdfg
+3 $ images/apartment-3.jpg $ 850 $ 1000 $ Available $ 789 Pine Lane, Sometown $ sdfgsdfgsdfgsdfgsdfgsdfgwergveg
+4 $ images/apartment-4.jpg $ 1200 $ 1400 $ Under Maintenance $ 321 Birch Road, Yourtown $ sdfgsdfgsdfgsdfgsdfg
+5 $ images/apartment-5.jpg $ 950 $ 1300 $ Available $ 654 Elm Street, Mytown $ sdfgsdfgsdfgsdfgsdfgsdfgsfdg
+6 $ images/apartment-6.jpg $ 1015 $ 1100 $ Available $ 231 Malon Street, Noyar $ afsadfhlasjkdflksjdflkjsfdlkajoeirqiuewfnxcvmnv
+7 $ images/apartment-7.jpg $ 700 $ 8500 $ Rented $ 02/1 Kuratoli, Kuril $ lsdflkajsdfoiewuroiquoriuq
