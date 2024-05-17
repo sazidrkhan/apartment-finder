@@ -9,7 +9,6 @@ import java.util.Scanner;
 
 // Login class to authenticate users and allow them to login to the application
 public class UserLogin extends JFrame implements ActionListener {
-    private ApartmentFinder apartmentFinder; // ApartmentFinder object to access the main window components and methods
     private JLabel title, usernameLabel, passwordLabel; // Labels for the login window
     private JTextField usernameField; // Text fields for the login window
     private JPasswordField passwordField; // Password field for the login window
@@ -20,7 +19,7 @@ public class UserLogin extends JFrame implements ActionListener {
 
     // Constructor for this class with ApartmentFinder object as a parameter to access the main window components and methods 
     public UserLogin(ApartmentFinder apartmentFinder) {
-        this.apartmentFinder = apartmentFinder;
+        apartmentFinder.dispose(); // Disposing the main window after opening the login window
 
         title = new JLabel("Please register or login to your account..."); // Title label for the login window
         usernameLabel = new JLabel("Username: "); // Username label
@@ -65,7 +64,7 @@ public class UserLogin extends JFrame implements ActionListener {
         loginButton.setBounds(190, 280, 100, 30); // Setting bounds for the login button
 
         registerButton.setBounds(90, 350, 100, 30); // Setting bounds for the register button
-        exitButton.setBounds(190, 350, 100, 30); // Setting bounds for the exit button
+        exitButton.setBounds(195, 350, 90, 30); // Setting bounds for the exit button
         adminButton.setBounds(290, 350, 100, 30); // Setting bounds for the admin button
 
         add(title); // Adding the title label to the frame
@@ -153,19 +152,18 @@ public class UserLogin extends JFrame implements ActionListener {
             }
         // If the register button is clicked, hiding the login window and opening the Register window
         } else if (e.getSource() == registerButton) {
-            setVisible(false); // Hiding the login window after clicking the register button
             usernameField.setText(""); // Clearing the username field after clicking the register button
             passwordField.setText(""); // Clearing the password field after clicking the register button
             new Register(this); // Opening the Register window with the current login window as the parameter
+            setVisible(false); // Hiding the login window after clicking the register button
         // If the exit button is clicked, exiting the application
         } else if (e.getSource() == exitButton) {
-            System.exit(0); // Exiting the application with status code 0 If the admin button is clicked, hiding the login window and opening the AdminLogin window
-            apartmentFinder.dispose(); // Closing the main window after exiting the application
+            System.exit(0); // Exiting the application with status code 0
         } else if (e.getSource() == adminButton) {
+            new AdminLogin(this); // Opening the AdminLogin window with the current login window as the parameter
             setVisible(false); // Hiding the login window after clicking the admin button
             usernameField.setText(""); // Clearing the username field after clicking the register button
             passwordField.setText(""); // Clearing the password field after clicking the register button
-            new AdminLogin(this); // Opening the AdminLogin window with the current login window as the parameter
             // If the action event is invalid, displaying a message to the console
         } else {
             System.out.println("Invalid action event!"); // Printing message to the console
