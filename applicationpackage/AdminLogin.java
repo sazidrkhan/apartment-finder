@@ -137,9 +137,8 @@ public class AdminLogin extends JFrame implements ActionListener {
             } else if (password.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Please enter password!", "Error", JOptionPane.ERROR_MESSAGE); // Displaying an error message dialog to the user
             } else if (isCorrect && name != null) {
-                setVisible(false); // Hiding the login window after successful login
                 new AdminDashboard(name);; // Opening the AdminDashboard window with the admin name as the parameter after successful login
-                dispose();
+                dispose();  // Closing the login window after successful login
                 // If the login credentials are incorrect, displaying an error message to the user
             } else {
                 JOptionPane.showMessageDialog(this, "Invalid username or password!", "Error", JOptionPane.ERROR_MESSAGE); // Displaying an error message dialog to the user
@@ -147,13 +146,12 @@ public class AdminLogin extends JFrame implements ActionListener {
             }
         // If the exit button is clicked, exiting the application with status code 0
         } else if (e.getSource() == exitButton) {
-            System.exit(0); // Exiting the application with status code 0 If the admin button is clicked, hiding the login window and opening the AdminLogin window
-            userLogin.dispose(); // Closing the main window after exiting the application
+            System.exit(0); // Exiting the application with status code 0
         } else if (e.getSource() == cancelButton) {
-            setVisible(false); // Hiding the login window after clicking the admin button
+            userLogin.setVisible(true); // Opening the AdminLogin window with the current login window as the parameter
             usernameField.setText(""); // Clearing the username field after clicking the cancel button
             passwordField.setText(""); // Clearing the password field after clicking the cancel button
-            userLogin.setVisible(true); // Opening the AdminLogin window with the current login window as the parameter
+            dispose();  // Closing the login window after clicking the cancel button
             // If the action event is invalid, displaying a message to the console
         } else {
             System.out.println("Invalid action event!"); // Printing message to the console
