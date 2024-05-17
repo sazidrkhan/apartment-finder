@@ -48,7 +48,6 @@ public class ApartmentFinder extends JFrame implements ActionListener {
         // If the start button is being clicked
         if (e.getSource() == startButton) {
             new UserLogin(this);    // Opening the next window
-            setVisible(false);  // Hiding the current window
             dispose();  // Closing the current window
         }
     }
