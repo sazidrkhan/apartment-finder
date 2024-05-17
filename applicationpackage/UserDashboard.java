@@ -57,7 +57,7 @@ public class UserDashboard extends JFrame {
                 String[] data = line.split(" \\$ ");
                 if (data.length >= 6) {
                     ImageIcon icon = new ImageIcon(new ImageIcon(data[1]).getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH));
-                    listModel.addElement(new ApartmentItem(data[2], data[3], data[4], data[5], data[6], icon));
+                    listModel.addElement(new ApartmentItem(data[0], data[2], data[3], data[4], data[5], data[6], icon));
                 }
             }
         } catch (FileNotFoundException e) {
@@ -70,14 +70,20 @@ public class UserDashboard extends JFrame {
     }
 
     private void apartmentSelected(ListSelectionEvent e) {
-        if (!e.getValueIsAdjusting()) {
+        if (!e.getValueIsAdjusting() && !apartmentList.isSelectionEmpty()) {
             ApartmentItem selected = apartmentList.getSelectedValue();
             if (selected != null) {
-                ApartmentDetailDialog detailDialog = new ApartmentDetailDialog(this, selected);
-                detailDialog.setVisible(true);
+                new ApartmentDetailDialog(this, selected);
             }
         }
     }
+
+    public void refreshApartmentList() {
+        listModel.clear();
+        loadApartmentDetails(); 
+        repaint();
+    }
+
 
     class ApartmentListCellRenderer extends DefaultListCellRenderer {
         @Override
@@ -85,11 +91,6 @@ public class UserDashboard extends JFrame {
             super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
             ApartmentItem item = (ApartmentItem) value;
             setText("<html><h2>Address: " + item.address + "<br/>Price: " + item.price + "<br/>Status: " + item.status + "</h2></html>");
-            JTextArea textArea = new JTextArea("Address: " + item.address + "\nPrice: " + item.price + "\nStatus: " + item.status);
-            textArea.setEditable(false);
-            textArea.setBackground(null);
-            textArea.setBorder(null);
-            // textArea.setFont(new Font("Georgia", Font.PLAIN, 16));
 
             setIcon(item.image);
             if (isSelected) {
