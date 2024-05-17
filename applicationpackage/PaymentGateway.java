@@ -5,13 +5,18 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class PaymentGateway extends JDialog implements ActionListener {
-    private String price;
+    private UserDashboard userDashboard;
+    private ApartmentDetailDialog apartmentDetailDialog;
+    private String price, apartmentID;
     private JLabel priceLabel, paymentLabel;
     private JButton nagadButton, bkashButton;
 
-    public PaymentGateway(JDialog parentDialog, String price) {
+    public PaymentGateway(JDialog parentDialog, String price, String apartmentID, UserDashboard userDashboard, ApartmentDetailDialog apartmentDetailDialog) {
         super(parentDialog, "Payment Gateway", true);
         this.price = price;
+        this.apartmentID = apartmentID;
+        this.userDashboard = userDashboard;
+        this.apartmentDetailDialog = apartmentDetailDialog;
 
         priceLabel = new JLabel("Amount Due: " + price);
         paymentLabel = new JLabel("Please select a payment method...");
@@ -43,6 +48,7 @@ public class PaymentGateway extends JDialog implements ActionListener {
         setLayout(null);
         setSize(400, 400);
         setLocationRelativeTo(parentDialog);
+        getContentPane().setBackground(Color.LIGHT_GRAY);
         setVisible(true);
     }
 
@@ -51,16 +57,12 @@ public class PaymentGateway extends JDialog implements ActionListener {
         // Handle button actions here
         if (e.getSource() == nagadButton || e.getSource() == bkashButton) {
             String method = e.getSource() == nagadButton ? "Nagad" : "bKash";
-            dispose();
-            new PaymentWindow(this, price, method).setVisible(true);
+            setVisible(false);
+            new PaymentWindow(this, price, method, apartmentID, userDashboard, apartmentDetailDialog);
         }
     }
 
     public static void main(String[] args) {
-        // For testing purposes, ensure there is a dummy parent
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(false);
-        new PaymentGateway(null, "5000");
+        new PaymentGateway(null, "5000", null, null, null);
     }
 }
