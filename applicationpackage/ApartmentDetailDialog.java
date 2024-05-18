@@ -17,18 +17,35 @@ public class ApartmentDetailDialog extends JDialog implements ActionListener {
 
         setTitle("Apartment Details");
         setLayout(new BorderLayout());
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowOpened(WindowEvent event) {
+                SwingUtilities.invokeLater(() -> {
+                    getContentPane().requestFocusInWindow();
+                });
+            }
+
+            @Override
+            public void windowClosing(WindowEvent event) {
+                userDashboard.clearSelection();
+                dispose();
+            }
+        });
 
         JLabel imageLabel = new JLabel(new ImageIcon(apartment.image.getImage().getScaledInstance(500, 500, Image.SCALE_SMOOTH)));
         imageLabel.setBackground(Color.LIGHT_GRAY);
     
         detailsPanel = new JPanel();
-        detailsPanel.setLayout(new GridLayout(6, 2));
-        detailsPanel.add(new JLabel("Status: " + apartment.status));
-        detailsPanel.add(new JLabel("Price (TK/month): " + apartment.price));
-        detailsPanel.add(new JLabel("Size (sq ft): " + apartment.size));
-        detailsPanel.add(new JLabel("Address: " + apartment.address));
-        detailsPanel.add(new JLabel("Details: " + apartment.details));
-        detailsPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        detailsPanel.setLayout(null);
+        detailsPanel.add(new JLabel("<html><b>Status: " + apartment.status + "</b></html>")).setBounds(10, 10, 500, 30);
+        detailsPanel.add(new JLabel("<html><b>Price (TK/month): " + apartment.price + "</b></html>")).setBounds(10, 40, 500, 30);
+        detailsPanel.add(new JLabel("<html><b>Size (sq ft): " + apartment.size + "</b></html>")).setBounds(10, 70, 500, 30);
+        detailsPanel.add(new JLabel("<html><b>Address: " + apartment.address + "</b></html>")).setBounds(10, 100, 500, 30);
+        detailsPanel.add(new JLabel("<html><b>Details:</b> " + apartment.details + "</html>")).setBounds(10, 130, 500, 100);
+        detailsPanel.setPreferredSize(new Dimension(500, 227));
+        detailsPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 5, 10));
         detailsPanel.setBackground(Color.LIGHT_GRAY);
     
         Font detailsFont = new Font("Georgia", Font.PLAIN, 16);
@@ -44,6 +61,7 @@ public class ApartmentDetailDialog extends JDialog implements ActionListener {
         rentButton = new JButton("Rent");
         buttonPanel.add(cancelButton);
         buttonPanel.add(rentButton);
+        buttonPanel.setSize(500, 30);
         buttonPanel.setBackground(Color.LIGHT_GRAY);
     
         cancelButton.addActionListener(this);
@@ -59,22 +77,20 @@ public class ApartmentDetailDialog extends JDialog implements ActionListener {
     
         pack();
         setLocationRelativeTo(userDashboard);
+        setResizable(false);
         setVisible(true);
     }
 
     public void updateDetails() {
         detailsPanel.removeAll();
         // Add updated labels
-        detailsPanel.add(new JLabel("Status: Rented"));
-        detailsPanel.add(new JLabel("Price (TK/month): " + apartment.price));
-        detailsPanel.add(new JLabel("Size (sq ft): " + apartment.size));
-        detailsPanel.add(new JLabel("Address: " + apartment.address));
-        detailsPanel.add(new JLabel("Details: " + apartment.details));
+        detailsPanel.add(new JLabel("<html><b>Status: Rented</b></html>")).setBounds(10, 10, 500, 30);
+        detailsPanel.add(new JLabel("<html><b>Price (TK/month): " + apartment.price + "</b></html>")).setBounds(10, 40, 500, 30);
+        detailsPanel.add(new JLabel("<html><b>Size (sq ft): " + apartment.size + "</b></html>")).setBounds(10, 70, 500, 30);
+        detailsPanel.add(new JLabel("<html><b>Address: " + apartment.address + "</b></html>")).setBounds(10, 100, 500, 30);
+        detailsPanel.add(new JLabel("<html><b>Details:</b> " + apartment.details + "</html>")).setBounds(10, 130, 500, 100);
         detailsPanel.revalidate();  // Refresh the panel layout after adding new labels 
         detailsPanel.repaint();
-        if ("Rented".equals(apartment.status)) {
-            rentButton.setEnabled(false);
-        }
 
         Font detailsFont = new Font("Georgia", Font.PLAIN, 16);
         for (Component component : detailsPanel.getComponents()) {

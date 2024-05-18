@@ -100,6 +100,7 @@ public class UserLogin extends JFrame implements ActionListener {
 
         setTitle("User Login"); // Setting title for the login window
         setSize(500, 500); // Setting size for the login window
+        setResizable(false);    // Disabling window resizing
         setLocationRelativeTo(null); // Setting the window to the center of the screen
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Closing the window when the close button is clicked
         setLayout(null); // Setting layout to null for absolute positioning of components
@@ -136,18 +137,19 @@ public class UserLogin extends JFrame implements ActionListener {
             }
             // If the login credentials are correct, hiding the login window and opening the Dashboard window
             if (username.isEmpty() && password.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "<html><font color='red'>Please enter username and password!</font></html>", "Error", JOptionPane.ERROR_MESSAGE); // Displaying an error message dialog to the user
+                JOptionPane.showMessageDialog(this, "Please enter username and password!", "Error", JOptionPane.ERROR_MESSAGE); // Displaying an error message dialog to the user
             } else if (username.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "<html><font color='red'>Please enter username!</font></html>", "Error", JOptionPane.ERROR_MESSAGE); // Displaying an error message dialog to the user
+                JOptionPane.showMessageDialog(this, "Please enter username!", "Error", JOptionPane.ERROR_MESSAGE); // Displaying an error message dialog to the user
             } else if (password.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "<html><font color='red'>Please enter password!</font></html>", "Error", JOptionPane.ERROR_MESSAGE); // Displaying an error message dialog to the user
+                JOptionPane.showMessageDialog(this, "Please enter password!", "Error", JOptionPane.ERROR_MESSAGE); // Displaying an error message dialog to the user
             } else if (isCorrect && name != null) {
-                new UserDashboard(name); // Opening the Dashboard window with the user's name as the parameter and making it visible to the user
-                setVisible(false); // Hiding the login window after successful login
+                new UserDashboard(name, this); // Opening the Dashboard window with the user's name as the parameter and making it visible to the user
+                usernameField.setText(""); // Clearing the username field after successful login
+                passwordField.setText(""); // Clearing the password field after successful login
                 dispose(); // Disposing the login window after successful login
                 // If the login credentials are incorrect, displaying an error message to the user
             } else {
-                JOptionPane.showMessageDialog(this, "<html><font color='red'>Invalid username or password!</font></html>", "Error", JOptionPane.ERROR_MESSAGE); // Displaying an error message dialog to the user
+                JOptionPane.showMessageDialog(this, "Invalid username or password!", "Error", JOptionPane.ERROR_MESSAGE); // Displaying an error message dialog to the user
                 passwordField.setText(""); // Clearing the password field after login attempt
             }
         // If the register button is clicked, hiding the login window and opening the Register window

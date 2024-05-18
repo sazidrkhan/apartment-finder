@@ -33,11 +33,22 @@ public class ApartmentFinder extends JFrame implements ActionListener {
         // Setting properties for the window
         setTitle("Apartment Finder");   // Setting the window title
         setSize(500, 500);  // Setting the window size 
+        setResizable(false);    // Making the window non-resizable
         setLocationRelativeTo(null);    // Setting the window to the center of the screen
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   // Closing the window when the close button is being clicked
         setLayout(null);    // Setting layout to null for absolute positioning
         setVisible(true);   // Making the window visible to the user
         getContentPane().setBackground(Color.LIGHT_GRAY);   // Setting background color for the window
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+                SwingUtilities.invokeLater(() -> {
+                    getContentPane().requestFocusInWindow();
+                });
+            }
+        });
+        
 
         startButton.addActionListener(this);    // Adding action listener to the start button
     }

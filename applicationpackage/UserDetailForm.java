@@ -24,11 +24,9 @@ public class UserDetailForm extends JFrame implements ActionListener {
         ageLabel = new JLabel("Age:");
         nidOrBidLabel = new JLabel("NID/BID No.");
         passwordLabel = new JLabel("Password:");
-
         genderLabel = new JLabel("Gender:");
         maleRadioButton = new JRadioButton("Male");
         femaleRadioButton = new JRadioButton("Female");
-
         saveButton = new JButton(data == null ? "Add" : "Update");
         cancelButton = new JButton("Cancel");
 
@@ -102,7 +100,6 @@ public class UserDetailForm extends JFrame implements ActionListener {
         saveButton.setBounds(270, 400, 100, 30);
 
         add(operationText);
-        add(new JLabel(""));
         add(uidLabel);
         add(uidField);
         add(nameLabel);
@@ -118,11 +115,9 @@ public class UserDetailForm extends JFrame implements ActionListener {
         add(nidOrBidField);
         add(genderLabel);
         add(maleRadioButton);
-        add(new JLabel(""));
         add(femaleRadioButton);
         add(passwordLabel);
         add(passwordField);
-        add(new JLabel(""));
         add(saveButton);
         add(cancelButton);
 
@@ -147,11 +142,22 @@ public class UserDetailForm extends JFrame implements ActionListener {
 
         setTitle(data == null ? "Add New User" : "Update User");
         setSize(500, 500);
+        setResizable(false);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(null);
-        setVisible(true);
         getContentPane().setBackground(Color.LIGHT_GRAY);
+    
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+                SwingUtilities.invokeLater(() -> {
+                    getContentPane().requestFocusInWindow();
+                });
+            }
+        });        
+    
+        setVisible(true);
     }
 
     @Override

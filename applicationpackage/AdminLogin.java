@@ -13,7 +13,7 @@ public class AdminLogin extends JFrame implements ActionListener {
     private JTextField usernameField; // Text fields for the login window
     private JPasswordField passwordField; // Password field for the login window
     private JCheckBox showPassword; // Checkbox to show password in the login window
-    private JButton loginButton, exitButton, cancelButton; // Buttons for the login window
+    private JButton loginButton, exitButton, backButton; // Buttons for the login window
     private String username, password; // Username and password strings for the login window
     private boolean isCorrect = false; // Boolean variable to check if the login credentials are correct
 
@@ -29,7 +29,7 @@ public class AdminLogin extends JFrame implements ActionListener {
         passwordField = new JPasswordField(); // Password text field
 
         exitButton = new JButton("Exit"); // Exit button
-        cancelButton = new JButton("Cancel"); // Cancel button
+        backButton = new JButton("Go Back"); // Back button
         loginButton = new JButton("Login"); // Login button
 
         Font labelFont = new Font("Georgia", Font.BOLD, 14); // Font for labels
@@ -44,7 +44,7 @@ public class AdminLogin extends JFrame implements ActionListener {
         Font buttonFont = new Font("Georgia", Font.BOLD, 14); // Font for buttons
         loginButton.setFont(buttonFont); // Setting font for the login button
         exitButton.setFont(buttonFont); // Setting font for the exit button
-        cancelButton.setFont(buttonFont); // Setting font for the admin button
+        backButton.setFont(buttonFont); // Setting font for the admin button
 
         showPassword = new JCheckBox("Show Password"); // Show password checkbox
         showPassword.setBackground(Color.lightGray); // Setting background color for the checkbox
@@ -62,7 +62,7 @@ public class AdminLogin extends JFrame implements ActionListener {
         loginButton.setBounds(190, 280, 100, 30); // Setting bounds for the login button
 
         exitButton.setBounds(130, 350, 100, 30); // Setting bounds for the exit button
-        cancelButton.setBounds(250, 350, 100, 30); // Setting bounds for the admin button
+        backButton.setBounds(250, 350, 100, 30); // Setting bounds for the admin button
 
         add(title); // Adding the title label to the frame
         add(usernameLabel); // Adding the username label to the frame
@@ -72,11 +72,11 @@ public class AdminLogin extends JFrame implements ActionListener {
         add(showPassword); // Adding the show password checkbox to the frame
         add(loginButton); // Adding the login button to the frame
         add(exitButton); // Adding the exit button to the frame
-        add(cancelButton); // Adding the admin button to the frame
+        add(backButton); // Adding the admin button to the frame
 
         loginButton.addActionListener(this); // Adding action listener to the login button
         exitButton.addActionListener(this); // Adding action listener to the exit button
-        cancelButton.addActionListener(this); // Adding action listener to the admin button
+        backButton.addActionListener(this); // Adding action listener to the admin button
 
         // Showing or hiding the password based on the checkbox state
         showPassword.addItemListener(new ItemListener() {
@@ -95,6 +95,7 @@ public class AdminLogin extends JFrame implements ActionListener {
 
         setTitle("Admin Login"); // Setting title for the login window
         setSize(500, 500); // Setting size for the login window
+        setResizable(false);    // Setting the window to be non-resizable
         setLocationRelativeTo(null); // Setting the window to the center of the screen
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Closing the window when the close button is clicked
         setLayout(new BorderLayout()); // Setting layout to null for absolute positioning of components
@@ -147,11 +148,11 @@ public class AdminLogin extends JFrame implements ActionListener {
         // If the exit button is clicked, exiting the application with status code 0
         } else if (e.getSource() == exitButton) {
             System.exit(0); // Exiting the application with status code 0
-        } else if (e.getSource() == cancelButton) {
+        } else if (e.getSource() == backButton) {
             userLogin.setVisible(true); // Opening the AdminLogin window with the current login window as the parameter
-            usernameField.setText(""); // Clearing the username field after clicking the cancel button
-            passwordField.setText(""); // Clearing the password field after clicking the cancel button
-            dispose();  // Closing the login window after clicking the cancel button
+            usernameField.setText(""); // Clearing the username field after clicking the back button
+            passwordField.setText(""); // Clearing the password field after clicking the back button
+            dispose();  // Closing the login window after clicking the back button
             // If the action event is invalid, displaying a message to the console
         } else {
             System.out.println("Invalid action event!"); // Printing message to the console

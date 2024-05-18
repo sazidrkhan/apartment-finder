@@ -1,32 +1,45 @@
 package applicationpackage;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.*;
 import java.awt.*;
+import java.awt.event.*;
 import java.io.*;
-import java.util.Scanner;
+import java.util.*;
 
 public class UserDashboard extends JFrame {
     private JList<ApartmentItem> apartmentList;
     private DefaultListModel<ApartmentItem> listModel;
 
-    public UserDashboard(String name) {
+    public UserDashboard(String name, UserLogin userLogin) {
         setTitle("User Dashboard");
         setSize(600, 800);
+        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+                SwingUtilities.invokeLater(() -> {
+                    getContentPane().requestFocusInWindow();
+                });
+            }
+        });
+        
+
         JPanel headerPanel = new JPanel();
         JLabel welcomeLabel = new JLabel("Welcome, " + name + "!");
-        welcomeLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        welcomeLabel.setFont(new Font("Times New Roman", Font.BOLD, 30));
+        headerPanel.setBackground(Color.LIGHT_GRAY);
         headerPanel.add(welcomeLabel);
 
         JButton logoutButton = new JButton("Logout");
         logoutButton.addActionListener(e -> {
             int response = JOptionPane.showConfirmDialog(this, "Are you sure you want to logout?", "Logout", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (response == JOptionPane.YES_OPTION) {
+                userLogin.setVisible(true);
                 dispose();
-                new UserLogin(null);
             }
         });
         headerPanel.add(logoutButton, BorderLayout.WEST);
@@ -90,7 +103,9 @@ public class UserDashboard extends JFrame {
         public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
             super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
             ApartmentItem item = (ApartmentItem) value;
-            setText("<html><h2>Address: " + item.address + "<br/>Price: " + item.price + "<br/>Status: " + item.status + "</h2></html>");
+            setText("<html>Address: " + item.address + "<br/>Price: " + item.price + "<br/>Status: " + item.status + "</html>");
+            setFont(new Font("Georgia", Font.PLAIN, 24));
+            setPreferredSize(new Dimension(200, 205));
 
             setIcon(item.image);
             if (isSelected) {
@@ -106,6 +121,6 @@ public class UserDashboard extends JFrame {
     }
 
     public static void main(String[] args) {
-        new UserDashboard("John Doe");
+        new UserDashboard("John Doe", null);
     }
 }

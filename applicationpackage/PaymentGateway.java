@@ -47,8 +47,19 @@ public class PaymentGateway extends JDialog implements ActionListener {
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setLayout(null);
         setSize(400, 400);
+        setResizable(false);
         setLocationRelativeTo(parentDialog);
         getContentPane().setBackground(Color.LIGHT_GRAY);
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+                SwingUtilities.invokeLater(() -> {
+                    getContentPane().requestFocusInWindow();
+                });
+            }
+        });
+    
         setVisible(true);
     }
 

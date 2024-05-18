@@ -10,7 +10,7 @@ public class Register extends JFrame implements ActionListener {    // This clas
     private JTextField nameField, usernameField, ageField, nidOrBidField;  // Text fields for the user to enter data 
     private JPasswordField passwordField, confirmPasswordField;   // Password fields for the user to enter data 
     private JCheckBox showPassword;   // Checkbox to show the password 
-    private JButton registerButton, cancelButton;   // Buttons for the user to perform actions 
+    private JButton registerButton, backButton;   // Buttons for the user to perform actions 
     private JRadioButton maleRadioButton, femaleRadioButton;    // Radio buttons for the user to select
     private ButtonGroup genderButtonGroup;   // Button group for radio buttons
 
@@ -35,7 +35,7 @@ public class Register extends JFrame implements ActionListener {    // This clas
         confirmPasswordField = new JPasswordField();    // Password field for the confirm password
     
         registerButton = new JButton("Register");   // Register button
-        cancelButton = new JButton("Cancel");   // Cancel button
+        backButton = new JButton("Go Back");   // Back button
     
         maleRadioButton = new JRadioButton("Male"); // Male radio button
         femaleRadioButton = new JRadioButton("Female"); // Female radio button
@@ -68,7 +68,7 @@ public class Register extends JFrame implements ActionListener {    // This clas
         maleRadioButton.setFont(buttonFont);    // Setting the font for the maleRadioButton
         femaleRadioButton.setFont(buttonFont);  // Setting the font for the femaleRadioButton
         registerButton.setFont(buttonFont);   // Setting the font for the registerButton
-        cancelButton.setFont(buttonFont);   // Setting the font for the cancelButton
+        backButton.setFont(buttonFont);   // Setting the font for the backButton
     
         maleRadioButton.setBackground(Color.lightGray); // Setting the background color for the maleRadioButton
         femaleRadioButton.setBackground(Color.lightGray);  // Setting the background color for the femaleRadioButton
@@ -102,8 +102,8 @@ public class Register extends JFrame implements ActionListener {    // This clas
     
         showPassword.setBounds(200, 350, 150, 30);  // Setting the bounds for the showPassword checkbox
     
-        registerButton.setBounds(250, 400, 100, 30);    // Setting the bounds for the registerButton
-        cancelButton.setBounds(150, 400, 100, 30);  // Setting the bounds for the cancelButton
+        backButton.setBounds(145, 400, 100, 30);  // Setting the bounds for the backButton
+        registerButton.setBounds(255, 400, 100, 30);    // Setting the bounds for the registerButton
     
         add(registerText);  // Adding the registerText label to the frame window
         add(new JLabel(""));    // Adding a blank label to the frame window
@@ -126,10 +126,10 @@ public class Register extends JFrame implements ActionListener {    // This clas
         add(showPassword);  // Adding the showPassword checkbox to the frame window
         add(new JLabel(""));    // Adding a blank label to the frame window
         add(registerButton);    // Adding the registerButton to the frame window
-        add(cancelButton);  // Adding the cancelButton to the frame window
+        add(backButton);  // Adding the backButton to the frame window
     
         registerButton.addActionListener(this);  // Adding action listener to the registerButton
-        cancelButton.addActionListener(this);   // Adding action listener to the cancelButton
+        backButton.addActionListener(this);   // Adding action listener to the backButton
         showPassword.addActionListener(this);   // Adding action listener to the showPassword checkbox
     
         showPassword.addActionListener(new ActionListener() {  // Adding an action listener to the showPassword checkbox
@@ -147,6 +147,7 @@ public class Register extends JFrame implements ActionListener {    // This clas
     
         setTitle("Registration");   // Setting the title for the frame window
         setSize(500, 500);  // Setting the size for the frame window
+        setResizable(false);    // Making the frame non-resizable
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  // Closing the window when the close button is clicked
         setLocationRelativeTo(null);    // Setting the window to the center of the screen
         setLayout(null);    // Setting the layout to GridLayout with 9 rows and 2 columns 
@@ -222,8 +223,8 @@ public class Register extends JFrame implements ActionListener {    // This clas
                 int response = JOptionPane.showOptionDialog(this, "Registration successful", "Success", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new Object[]{"OK"}, "OK");   // Showing a success message if the registration is successful
             
                 if (response == JOptionPane.OK_OPTION) {    // If the user clicks the OK button
-                    this.setVisible(false); // Hiding current window
                     login.setVisible(true); // Showing the login window
+                    this.setVisible(false); // Hiding current window
                 }
             
                 nameField.setText("");  // Clearing the nameField 
@@ -235,7 +236,7 @@ public class Register extends JFrame implements ActionListener {    // This clas
                 maleRadioButton.setSelected(false);  // Deselecting the maleRadioButton
                 femaleRadioButton.setSelected(false);    // Deselecting the femaleRadioButton
             }
-        } else if (e.getSource() == cancelButton) {   // If the cancel button is clicked
+        } else if (e.getSource() == backButton) {   // If the back button is clicked
             this.setVisible(false); // Hiding the current window
             login.setVisible(true); // Showing the login window
         }

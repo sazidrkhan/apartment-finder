@@ -21,8 +21,25 @@ public class ApartmentManager extends JFrame implements ActionListener {
         setSize(910, 500);
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);  // Setting the default close operation of the frame
         getContentPane().setBackground(Color.LIGHT_GRAY);
+    
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                dispose(); // Disposing the current frame
+                adminDashboard.setVisible(true);    // Setting the admin dashboard frame visible
+            
+            }
+        
+            @Override
+            public void windowOpened(WindowEvent e) {
+                SwingUtilities.invokeLater(() -> {
+                    getContentPane().requestFocusInWindow();
+                });
+            }
+        });
+        
 
         String[] columnNames = {"AID", "Image Path", "Size (sq ft)", "Price (TK)", "Status", "Address", "Description"};
         tableModel = new DefaultTableModel(columnNames, 0) {
@@ -48,7 +65,7 @@ public class ApartmentManager extends JFrame implements ActionListener {
         addButton = new JButton("Add Apartment");
         updateButton = new JButton("Update Apartment");
         deleteButton = new JButton("Delete Apartment");
-        refreshButton = new JButton("Refresh List");
+        refreshButton = new JButton("Remove Selection");
         backButton = new JButton("Go Back");
 
         addButton.addActionListener(this);
@@ -77,15 +94,15 @@ public class ApartmentManager extends JFrame implements ActionListener {
         table.getColumnModel().getColumn(5).setMinWidth(210);
         table.getColumnModel().getColumn(6).setMinWidth(170);
 
-        table.getColumnModel().getColumn(1).setPreferredWidth(250);
-        table.getColumnModel().getColumn(5).setPreferredWidth(300);
+        table.getColumnModel().getColumn(1).setPreferredWidth(170);
+        table.getColumnModel().getColumn(5).setPreferredWidth(380);
 
         table.getColumnModel().getColumn(0).setMaxWidth(50);
-        table.getColumnModel().getColumn(1).setMaxWidth(250);
+        table.getColumnModel().getColumn(1).setMaxWidth(170);
         table.getColumnModel().getColumn(2).setMaxWidth(80);
         table.getColumnModel().getColumn(3).setMaxWidth(80);
         table.getColumnModel().getColumn(4).setMaxWidth(150);
-        table.getColumnModel().getColumn(5).setMaxWidth(300);
+        table.getColumnModel().getColumn(5).setMaxWidth(380);
     }
     
     private void setTableAlignment(JTable table) {

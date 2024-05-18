@@ -19,10 +19,27 @@ public class UserManager extends JFrame implements ActionListener { // Class dec
 
         setTitle("User Manager");   // Setting the title of the frame
         setSize(800, 500);   // Setting the size of the frame
+        setResizable(false);
         setLayout(new BorderLayout());   // Setting the layout of the frame
         setLocationRelativeTo(null);    // Setting the location of the frame to the center of the screen
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);  // Setting the default close operation of the frame
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);  // Setting the default close operation of the frame
         getContentPane().setBackground(Color.LIGHT_GRAY);   // Setting the background color of the frame
+        
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                dispose(); // Disposing the current frame
+                adminDashboard.setVisible(true);    // Setting the admin dashboard frame visible
+            }
+        
+            @Override
+            public void windowOpened(WindowEvent e) {
+                SwingUtilities.invokeLater(() -> {
+                    getContentPane().requestFocusInWindow();
+                });
+            }
+        });
+        
 
         String[] columnNames = {"UID", "Name", "Username", "Age", "Gender", "NID/BID No.", "Password"};    // Array of column names for the table
         tableModel = new DefaultTableModel(columnNames, 0){ // Creating a DefaultTableModel with column names and 0 rows to store user data in tabular form 
@@ -69,12 +86,12 @@ public class UserManager extends JFrame implements ActionListener { // Class dec
     }
 
     private void adjustColumnWidth(JTable table){   // Method to adjust the column width of the table
-        table.getColumnModel().getColumn(0).setPreferredWidth(40);  // Setting the preferred width of the first column
+        table.getColumnModel().getColumn(0).setPreferredWidth(50);  // Setting the preferred width of the first column
         table.getColumnModel().getColumn(1).setPreferredWidth(200); // Setting the preferred width of the second column
-        table.getColumnModel().getColumn(2).setPreferredWidth(150);  // Setting the preferred width of the third column
+        table.getColumnModel().getColumn(2).setPreferredWidth(130);  // Setting the preferred width of the third column
         table.getColumnModel().getColumn(3).setPreferredWidth(40);  // Setting the preferred width of the fourth column
         table.getColumnModel().getColumn(4).setPreferredWidth(60); // Setting the preferred width of the fifth column
-        table.getColumnModel().getColumn(5).setPreferredWidth(150); // Setting the preferred width of the sixth column
+        table.getColumnModel().getColumn(5).setPreferredWidth(160); // Setting the preferred width of the sixth column
         table.getColumnModel().getColumn(6).setPreferredWidth(200); // Setting the preferred width of the seventh column
     }
 

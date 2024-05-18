@@ -29,7 +29,9 @@ public class PaymentWindow extends JDialog implements ActionListener {
     
         setTitle("Payment Window");
         setSize(500, 500);
+        setResizable(false);
         setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+        
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -39,6 +41,7 @@ public class PaymentWindow extends JDialog implements ActionListener {
                 }
             }
         });
+
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;
@@ -151,6 +154,22 @@ public class PaymentWindow extends JDialog implements ActionListener {
                 return;
             } 
 
+            if (!accountNumber.startsWith("01")) {
+                JOptionPane.showMessageDialog(this, "Please enter a valid " + paymentMethod + " account number.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        
+            try {
+                Integer.parseInt(accountNumber);
+                if (accountNumber.length() != 11) {
+                    JOptionPane.showMessageDialog(this, "Please enter a valid 11-digit " + paymentMethod + " account number.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                } 
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Account number must be a numeric value.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             try {
                 Integer.parseInt(pin);
                 if (paymentMethod.equals("bKash") && (pin.length() != 4 && pin.length() != 5)) {
@@ -165,21 +184,6 @@ public class PaymentWindow extends JDialog implements ActionListener {
                 return;
             }
             
-            try {
-                Integer.parseInt(accountNumber);
-                if (accountNumber.length() != 11) {
-                    JOptionPane.showMessageDialog(this, "Please enter a valid 11-digit " + paymentMethod + " account number.", "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-            
-                if (!accountNumber.startsWith("01")) {
-                    JOptionPane.showMessageDialog(this, "Please enter a valid " + paymentMethod + " account number starting with '01'.", "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                } 
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Account number must be a numeric value.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
         
             JOptionPane.showMessageDialog(this, "Payment successfully processed!", "Success", JOptionPane.INFORMATION_MESSAGE);
             markApartmentRented(apartmentID);
