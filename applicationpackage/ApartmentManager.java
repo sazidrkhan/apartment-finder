@@ -10,7 +10,7 @@ import java.util.*;
 public class ApartmentManager extends JFrame implements ActionListener {
     private AdminDashboard adminDashboard;
     private JTable apartmentTable;
-    private JButton addButton, updateButton, deleteButton, refreshButton, backButton;
+    private JButton addButton, updateButton, deleteButton, deselectButton, backButton;
     private DefaultTableModel tableModel;
     private final String dataFilePath = "database/ApartmentData.txt";
 
@@ -21,17 +21,17 @@ public class ApartmentManager extends JFrame implements ActionListener {
         setSize(910, 500);
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);  // Setting the default close operation of the frame
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // Setting the default close operation of the frame
         getContentPane().setBackground(Color.LIGHT_GRAY);
-    
+
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
                 dispose(); // Disposing the current frame
-                adminDashboard.setVisible(true);    // Setting the admin dashboard frame visible
-            
+                adminDashboard.setVisible(true); // Setting the admin dashboard frame visible
+
             }
-        
+
             @Override
             public void windowOpened(WindowEvent e) {
                 SwingUtilities.invokeLater(() -> {
@@ -39,9 +39,9 @@ public class ApartmentManager extends JFrame implements ActionListener {
                 });
             }
         });
-        
 
-        String[] columnNames = {"AID", "Image Path", "Size (sq ft)", "Price (TK)", "Status", "Address", "Description"};
+        String[] columnNames = { "AID", "Image Path", "Size (sq ft)", "Price (TK)", "Status", "Address",
+                "Description" };
         tableModel = new DefaultTableModel(columnNames, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -65,19 +65,19 @@ public class ApartmentManager extends JFrame implements ActionListener {
         addButton = new JButton("Add Apartment");
         updateButton = new JButton("Update Apartment");
         deleteButton = new JButton("Delete Apartment");
-        refreshButton = new JButton("Remove Selection");
+        deselectButton = new JButton("Remove Selection");
         backButton = new JButton("Go Back");
 
         addButton.addActionListener(this);
         updateButton.addActionListener(this);
         deleteButton.addActionListener(this);
-        refreshButton.addActionListener(this);
+        deselectButton.addActionListener(this);
         backButton.addActionListener(this);
 
         buttonPanel.add(addButton);
         buttonPanel.add(updateButton);
         buttonPanel.add(deleteButton);
-        buttonPanel.add(refreshButton);
+        buttonPanel.add(deselectButton);
         buttonPanel.add(backButton);
 
         add(buttonPanel, BorderLayout.SOUTH);
@@ -85,7 +85,7 @@ public class ApartmentManager extends JFrame implements ActionListener {
         setVisible(true);
     }
 
-    private void adjustColumnWidth(JTable table){
+    private void adjustColumnWidth(JTable table) {
         table.getColumnModel().getColumn(0).setMinWidth(40);
         table.getColumnModel().getColumn(1).setMinWidth(170);
         table.getColumnModel().getColumn(2).setMinWidth(70);
@@ -104,12 +104,12 @@ public class ApartmentManager extends JFrame implements ActionListener {
         table.getColumnModel().getColumn(4).setMaxWidth(150);
         table.getColumnModel().getColumn(5).setMaxWidth(380);
     }
-    
+
     private void setTableAlignment(JTable table) {
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        DefaultTableCellRenderer center = new DefaultTableCellRenderer();
+        center.setHorizontalAlignment(JLabel.CENTER);
         for (int i = 0; i < table.getColumnCount(); i++) {
-            table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+            table.getColumnModel().getColumn(i).setCellRenderer(center);
         }
     }
 
@@ -171,7 +171,8 @@ public class ApartmentManager extends JFrame implements ActionListener {
         } else if (e.getSource() == updateButton) {
             int row = apartmentTable.getSelectedRow();
             if (row != -1) {
-                if (JOptionPane.showConfirmDialog(this, "Are you sure you want to update this apartment?", "Confirm", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                if (JOptionPane.showConfirmDialog(this, "Are you sure you want to update this apartment?", "Confirm",
+                        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                     String[] data = new String[tableModel.getColumnCount()];
                     for (int i = 0; i < data.length; i++) {
                         data[i] = tableModel.getValueAt(row, i).toString();
@@ -184,14 +185,15 @@ public class ApartmentManager extends JFrame implements ActionListener {
         } else if (e.getSource() == deleteButton) {
             int row = apartmentTable.getSelectedRow();
             if (row != -1) {
-                if (JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this apartment?", "Confirm", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                if (JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this apartment?", "Confirm",
+                        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                     tableModel.removeRow(row);
                     saveApartments();
-                } 
+                }
             } else {
                 JOptionPane.showMessageDialog(this, "No apartment selected.", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        } else if (e.getSource() == refreshButton) {
+        } else if (e.getSource() == deselectButton) {
             loadApartments();
         } else if (e.getSource() == backButton) {
             this.dispose();

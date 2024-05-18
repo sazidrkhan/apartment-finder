@@ -19,8 +19,6 @@ public class UserLogin extends JFrame implements ActionListener {
 
     // Constructor for this class with ApartmentFinder object as a parameter to access the main window components and methods 
     public UserLogin(ApartmentFinder apartmentFinder) {
-        apartmentFinder.dispose(); // Disposing the main window after opening the login window
-
         title = new JLabel("Please register or login to your account..."); // Title label for the login window
         usernameLabel = new JLabel("Username: "); // Username label
         passwordLabel = new JLabel("Password: "); // Password label
@@ -156,16 +154,17 @@ public class UserLogin extends JFrame implements ActionListener {
         } else if (e.getSource() == registerButton) {
             usernameField.setText(""); // Clearing the username field after clicking the register button
             passwordField.setText(""); // Clearing the password field after clicking the register button
-            new Register(this); // Opening the Register window with the current login window as the parameter
+            new Register(null); // Opening the Register window with the current login window as the parameter
             setVisible(false); // Hiding the login window after clicking the register button
         // If the exit button is clicked, exiting the application
         } else if (e.getSource() == exitButton) {
             System.exit(0); // Exiting the application with status code 0
         } else if (e.getSource() == adminButton) {
-            new AdminLogin(this); // Opening the AdminLogin window with the current login window as the parameter
+            new AdminLogin(null); // Opening the AdminLogin window with the current login window as the parameter
             setVisible(false); // Hiding the login window after clicking the admin button
             usernameField.setText(""); // Clearing the username field after clicking the register button
             passwordField.setText(""); // Clearing the password field after clicking the register button
+            dispose(); // Disposing the login window after clicking the admin button
             // If the action event is invalid, displaying a message to the console
         } else {
             System.out.println("Invalid action event!"); // Printing message to the console

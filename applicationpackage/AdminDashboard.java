@@ -1,4 +1,4 @@
-package applicationpackage;
+package applicationpackage; // Package containing the main classes of the application
 
 import javax.swing.*;
 import java.awt.*;

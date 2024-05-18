@@ -8,7 +8,6 @@ import java.util.Scanner;   // Importing the java.util.Scanner package for readi
 
 // Login class to authenticate admins and allow them to login to the application
 public class AdminLogin extends JFrame implements ActionListener {
-    private UserLogin userLogin; // UserLogin object to access the main window components and methods
     private JLabel title, usernameLabel, passwordLabel; // Labels for the login window
     private JTextField usernameField; // Text fields for the login window
     private JPasswordField passwordField; // Password field for the login window
@@ -19,8 +18,6 @@ public class AdminLogin extends JFrame implements ActionListener {
 
     // Constructor for this class with UserLogin object as a parameter to access the main window components and methods 
     public AdminLogin(UserLogin userLogin) {
-        this.userLogin = userLogin;
-
         title = new JLabel("Please login to your account..."); // Title label for the login window
         usernameLabel = new JLabel("Username: "); // Username label
         passwordLabel = new JLabel("Password: "); // Password label
@@ -149,7 +146,8 @@ public class AdminLogin extends JFrame implements ActionListener {
         } else if (e.getSource() == exitButton) {
             System.exit(0); // Exiting the application with status code 0
         } else if (e.getSource() == backButton) {
-            userLogin.setVisible(true); // Opening the AdminLogin window with the current login window as the parameter
+            // userLogin.setVisible(true); // Opening the AdminLogin window with the current login window as the parameter
+            new UserLogin(null); // Opening the UserLogin window with the current login window as the parameter
             usernameField.setText(""); // Clearing the username field after clicking the back button
             passwordField.setText(""); // Clearing the password field after clicking the back button
             dispose();  // Closing the login window after clicking the back button

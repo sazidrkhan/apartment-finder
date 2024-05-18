@@ -5,7 +5,6 @@ import java.awt.*;   // Importing the java.awt package for layouts and colors
 import java.awt.event.*;   // Importing the java.awt.event package for event handling
 
 public class Register extends JFrame implements ActionListener {    // This class extends JFrame and implements ActionListener to handle GUI and events
-    private UserLogin login;    // UserLogin object to access the login window components and methods 
     private JLabel registerText, nameLabel, usernameLabel, ageLabel, nidOrBidLabel, genderLabel, passwordLabel, confirmPasswordLabel;   // Labels for the components in the frame window 
     private JTextField nameField, usernameField, ageField, nidOrBidField;  // Text fields for the user to enter data 
     private JPasswordField passwordField, confirmPasswordField;   // Password fields for the user to enter data 
@@ -15,8 +14,6 @@ public class Register extends JFrame implements ActionListener {    // This clas
     private ButtonGroup genderButtonGroup;   // Button group for radio buttons
 
     public Register(UserLogin login) {  // Constructor to initialize the components and set the layout of the frame window 
-        this.login = login; // Assigning the login object to the class variable
-    
         registerText = new JLabel("Please Register...");    // Create a label with the text "Please Register..." 
         nameLabel = new JLabel("Name:");    // Name label
         usernameLabel = new JLabel("Username:");    // Username label
@@ -106,7 +103,6 @@ public class Register extends JFrame implements ActionListener {    // This clas
         registerButton.setBounds(255, 400, 100, 30);    // Setting the bounds for the registerButton
     
         add(registerText);  // Adding the registerText label to the frame window
-        add(new JLabel(""));    // Adding a blank label to the frame window
         add(nameLabel); // Adding the nameLabel to the frame window
         add(nameField); // Adding the nameField to the frame window
         add(usernameLabel); // Adding the usernameLabel to the frame window
@@ -117,14 +113,12 @@ public class Register extends JFrame implements ActionListener {    // This clas
         add(nidOrBidField); // Adding the nidOrBidField to the frame window
         add(genderLabel);   // Adding the genderLabel to the frame window
         add(maleRadioButton);   // Adding the maleRadioButton to the frame window
-        add(new JLabel(""));    // Adding a blank label to the frame window
         add(femaleRadioButton); // Adding the femaleRadioButton to the frame window
         add(passwordLabel); // Adding the passwordLabel to the frame window
         add(passwordField); // Adding the passwordField to the frame window
         add(confirmPasswordLabel);  // Adding the confirmPasswordLabel to the frame window
         add(confirmPasswordField);  // Adding the confirmPasswordField to the frame window
         add(showPassword);  // Adding the showPassword checkbox to the frame window
-        add(new JLabel(""));    // Adding a blank label to the frame window
         add(registerButton);    // Adding the registerButton to the frame window
         add(backButton);  // Adding the backButton to the frame window
     
@@ -223,7 +217,7 @@ public class Register extends JFrame implements ActionListener {    // This clas
                 int response = JOptionPane.showOptionDialog(this, "Registration successful", "Success", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new Object[]{"OK"}, "OK");   // Showing a success message if the registration is successful
             
                 if (response == JOptionPane.OK_OPTION) {    // If the user clicks the OK button
-                    login.setVisible(true); // Showing the login window
+                    new UserLogin(null);    // Opening the login window
                     this.setVisible(false); // Hiding current window
                 }
             
@@ -238,7 +232,7 @@ public class Register extends JFrame implements ActionListener {    // This clas
             }
         } else if (e.getSource() == backButton) {   // If the back button is clicked
             this.setVisible(false); // Hiding the current window
-            login.setVisible(true); // Showing the login window
+            new UserLogin(null);    // Opening the login window
         }
     }
 
