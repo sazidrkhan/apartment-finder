@@ -1,10 +1,13 @@
-package applicationpackage;
+package applicationpackage; // Package containing the main classes of the application
 
+// Importing the necessary classes
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+// Apartment Detail Form class to display the details of the apartments
 public class ApartmentDetailForm extends JFrame implements ActionListener {
+    // Declaring the necessary components
     private ApartmentManager apartmentManager;
     private JLabel operationText, aidLabel, addressLabel, sizeLabel, priceLabel, statusLabel, imagePathLabel, descriptionLabel;
     private JTextField aidField, addressField, sizeField, priceField, imagePathField, descriptionField;
@@ -12,10 +15,13 @@ public class ApartmentDetailForm extends JFrame implements ActionListener {
     private JButton saveButton, cancelButton;
     private String[] originalData;
 
+    // Constructor to initialize the components
     public ApartmentDetailForm(ApartmentManager apartmentManager, String[] data) {
+        // Initializing the components
         this.apartmentManager = apartmentManager;
         this.originalData = data;
-
+    
+        // Labeling the components 
         operationText = new JLabel(data == null ? "Adding new apartment..." : "Updating apartment...");
         aidLabel = new JLabel("ID:");
         addressLabel = new JLabel("Address:");
@@ -24,10 +30,11 @@ public class ApartmentDetailForm extends JFrame implements ActionListener {
         statusLabel = new JLabel("Status:");
         imagePathLabel = new JLabel("Image Path:");
         descriptionLabel = new JLabel("Description:");
-        String[] statuses = {"Available", "Rented", "Under Maintenance"};
+        String[] statuses = {"Available", "Rented", "Under Maintenance"};   
         saveButton = new JButton(data == null ? "Add" : "Update");
         cancelButton = new JButton("Cancel");
-
+    
+        // Setting the font for the components
         aidField = new JTextField();
         addressField = new JTextField();
         sizeField = new JTextField();
@@ -35,12 +42,15 @@ public class ApartmentDetailForm extends JFrame implements ActionListener {
         imagePathField = new JTextField();
         descriptionField = new JTextField();
         statusComboBox = new JComboBox<>(statuses);
-
+    
+        // Disabling the ID field
         aidField.setEditable(false);
-        
+    
+        // Setting the font for the operation text
         Font message = new Font("Times New Roman", Font.BOLD, 26);
         operationText.setFont(message);
     
+        // Setting the font for the labels
         Font labelFont = new Font("Georgia", Font.BOLD, 14);
         aidLabel.setFont(labelFont);
         addressLabel.setFont(labelFont);
@@ -49,7 +59,8 @@ public class ApartmentDetailForm extends JFrame implements ActionListener {
         statusLabel.setFont(labelFont);
         imagePathLabel.setFont(labelFont);
         descriptionLabel.setFont(labelFont);
-
+    
+        // Setting the font for the fields
         Font fieldFont = new Font("Arial", Font.PLAIN, 14);
         aidField.setFont(fieldFont);
         addressField.setFont(fieldFont);
@@ -57,7 +68,8 @@ public class ApartmentDetailForm extends JFrame implements ActionListener {
         priceField.setFont(fieldFont);
         imagePathField.setFont(fieldFont);
         descriptionField.setFont(fieldFont);
-
+    
+        // Setting bounds for the components
         operationText.setBounds(100, 20, 300, 30);
         aidLabel.setBounds(50, 70, 100, 30);
         aidField.setBounds(150, 70, 300, 30);
@@ -75,7 +87,8 @@ public class ApartmentDetailForm extends JFrame implements ActionListener {
         descriptionField.setBounds(150, 370, 300, 30);
         cancelButton.setBounds(150, 420, 100, 30);
         saveButton.setBounds(270, 420, 100, 30);
-
+    
+        // Adding the components to the frame
         add(operationText);
         add(aidLabel);
         add(aidField);
@@ -93,10 +106,12 @@ public class ApartmentDetailForm extends JFrame implements ActionListener {
         add(descriptionField);
         add(cancelButton);
         add(saveButton);
-
+    
+        // Adding action listeners to the buttons
         saveButton.addActionListener(this);
         cancelButton.addActionListener(this);
-
+    
+        // Setting the data for the fields
         if (data != null) {
             aidField.setText(data[0]);
             imagePathField.setText(data[1]);
@@ -108,7 +123,8 @@ public class ApartmentDetailForm extends JFrame implements ActionListener {
         } else {
             aidField.setText(Integer.toString(apartmentManager.getNextApartmentID()));
         }
-
+    
+        // Setting the properties for the frame
         setTitle(data == null ? "Add New Apartment" : "Update Apartment");
         setSize(500, 500);
         setResizable(false);
@@ -116,7 +132,8 @@ public class ApartmentDetailForm extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setLayout(null);
         getContentPane().setBackground(Color.LIGHT_GRAY);
-
+    
+        // Adding a window listener to the frame to request focus when opened
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowOpened(WindowEvent e) {
@@ -126,9 +143,11 @@ public class ApartmentDetailForm extends JFrame implements ActionListener {
             }
         });        
     
+        // Making the frame visible
         setVisible(true);
     }
 
+    // Overriding the actionPerformed method to handle the actions of the buttons
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == saveButton) {
@@ -143,14 +162,14 @@ public class ApartmentDetailForm extends JFrame implements ActionListener {
             };
 
             if (originalData == null) {
-                apartmentManager.addNewApartment(newData);
+                apartmentManager.addNewApartment(newData);  // Adding a new apartment when save button is clicked and original data is null
             } else {
                 System.arraycopy(newData, 0, originalData, 0, newData.length); // Copy new data to original data
-                apartmentManager.updateApartment(originalData);
+                apartmentManager.updateApartment(originalData); // Updating the apartment when save button is clicked and original data is not null
             }
             dispose();
         } else if (e.getSource() == cancelButton) {
-            dispose();
+            dispose();  // Disposing the frame when cancel button is clicked
         }
     }
 }

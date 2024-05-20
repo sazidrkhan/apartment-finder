@@ -1,45 +1,52 @@
-package applicationpackage; // Package declaration for the class
+package applicationpackage; // Package containing the main classes of the application
 
-// Importing necessary libraries for the class
+// Importing the necessary classes
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-// This class extends JFrame and implements ActionListener to handle GUI and events
+// Apartment Finder class to display the welcome message
 public class ApartmentFinder extends JFrame implements ActionListener {
-    // Declaring components
+    // Declaring the necessary components
     private JLabel welcomeText;
     private JButton startButton;
 
-    // Constructor to initialize the frame and components
+    // Constructor to initialize the components
     public ApartmentFinder() {
-        // Initializing components
-        welcomeText = new JLabel("Welcome to Apartment Finder!");  // Setting the welcome text label
-        startButton = new JButton("Let's Get Started...");  // Setting the text for the start button
-
-        Font message = new Font("Times New Roman", Font.BOLD, 30);  // Setting the font for the welcome text
-        welcomeText.setFont(message);   // Applying the font to the welcome text
-
-        Font buttonFont = new Font("Georgia", Font.BOLD, 14);   // Setting the font for the start button
-        startButton.setFont(buttonFont);    // Applying the font to the start button
-
-        // Setting bounds for the components
-        welcomeText.setBounds(40, 100, 700, 50);   // Setting bounds for the welcome text
-        startButton.setBounds(150, 300, 180, 30);   // Setting bounds for the start button
-
-        add(welcomeText);   // Adding the welcome text to the window
-        add(startButton);   // Adding the start button to the window 
-
-        // Setting properties for the window
-        setTitle("Apartment Finder");   // Setting the window title
-        setSize(500, 500);  // Setting the window size 
-        setResizable(false);    // Making the window non-resizable
-        setLocationRelativeTo(null);    // Setting the window to the center of the screen
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   // Closing the window when the close button is being clicked
-        setLayout(null);    // Setting layout to null for absolute positioning
-        setVisible(true);   // Making the window visible to the user
-        getContentPane().setBackground(Color.LIGHT_GRAY);   // Setting background color for the window
-
+        // Initializing the components
+        welcomeText = new JLabel("Welcome to Apartment Finder!");
+        startButton = new JButton("Let's Get Started...");
+    
+        // Setting the font for the components
+        Font message = new Font("Times New Roman", Font.BOLD, 30);
+        welcomeText.setFont(message);
+    
+        // Setting the font for the button
+        Font buttonFont = new Font("Georgia", Font.BOLD, 14);
+        startButton.setFont(buttonFont);
+    
+        // Setting the bounds for the components
+        welcomeText.setBounds(40, 100, 700, 50);
+        startButton.setBounds(150, 250, 200, 30);
+    
+        // Adding an action listener to the button
+        startButton.addActionListener(this);
+    
+        // Adding the components to the frame
+        add(welcomeText);
+        add(startButton);
+    
+        // Setting the properties of the frame
+        setTitle("Apartment Finder");
+        setSize(500, 500);
+        setResizable(false);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(null);
+        setVisible(true);
+        getContentPane().setBackground(Color.LIGHT_GRAY);
+    
+        // Setting the focus on the window
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowOpened(WindowEvent e) {
@@ -48,24 +55,19 @@ public class ApartmentFinder extends JFrame implements ActionListener {
                 });
             }
         });
-        
-
-        startButton.addActionListener(this);    // Adding action listener to the start button
     }
 
-    // Overriding the actionPerformed method
-    @Override   
+    // Overriding the actionPerformed method to handle the button click
+    @Override
     public void actionPerformed(ActionEvent e) {
-        // If the start button is being clicked
         if (e.getSource() == startButton) {
-            new UserLogin(null);    // Opening the next window
-            dispose();  // Closing the current window
+            new UserLogin(null);    // Creating a new UserLogin object to display the login screen
+            dispose();
         }
     }
 
-    // Main method to run the program
+    // Main method to test the Apartment Finder class
     public static void main(String[] args) {
-        new ApartmentFinder(); // Creating an object of the ApartmentFinder class to display the frame
+        new ApartmentFinder();
     }
 }
-

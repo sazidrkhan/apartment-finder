@@ -1,43 +1,48 @@
-package applicationpackage; // Package declaration for the class
+package applicationpackage; // Package containing the classes of the application
 
-import java.io.*;   // Importing necessary libraries for the class
+// Importing necessary classes
+import java.io.*;
 
-public class User  {    // This class is used to store user information and register users
-    private String name, username, password, gender;    // 
-    private int age;    // Declaring variables to store user information
-    private long nidOrBid;  // Declaring variables to store user information
+// User class to store the user data
+public class User  {
+    // Declaring the instance variables
+    private String name, username, password, gender;
+    private int age;
+    private long nidOrBid;
 
-    public User(String name, String username, int ageInt, String gender, long nidOrBidLong, String password) {  // Constructor to initialize the user object
-        this.name = name;   // Initializing the name variable
-        this.username = username;   // Initializing the username variable
-        this.age = ageInt;  // Initializing the age variable
-        this.gender = gender;   // Initializing gender variable
-        this.nidOrBid = nidOrBidLong;   // Initializing nidOrBid variable
-        this.password = password;   // Initializing password variable
+    // Constructor to initialize the instance variables
+    public User(String name, String username, int ageInt, String gender, long nidOrBidLong, String password) {
+        // Initializing the instance variables
+        this.name = name;
+        this.username = username;
+        this.age = ageInt;
+        this.gender = gender;
+        this.nidOrBid = nidOrBidLong;
+        this.password = password;
     }
 
+    // Setting the new user ID
     private static int setNewUserID() {
-        int lines = 1;  // Initializing lines variable to 0
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader("database/UserData.txt"))) {  // Try block to read the file UserData.txt in the database folder
-            while (bufferedReader.readLine() != null) {    // Loop to read the file line by line
-                lines++;    // Incrementing the lines variable
+        int lines = 1;
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader("database/UserData.txt"))) {
+            while (bufferedReader.readLine() != null) { // Reading the file line by line    
+                lines++;    // Incrementing the lines
             }
-            // return lines;   // Returning the lines variable
-        } catch (IOException e) {   // Catch block to catch any exceptions that occur while reading the file
-            e.printStackTrace();    // Printing the stack trace of the exception
-            // return -1;  // Returning -1 if the lines variable is not successfully initialized
+        } catch (IOException e) {   // Catching the IOException if any
+            e.printStackTrace();    // Printing the stack trace
         }
-        return lines++; // Returning the lines variable
+        return lines++; // Returning the incremented lines
     }
 
-    public boolean registerUser() { // Method to register the user
-        int uid = setNewUserID();    // Initializing the uid variable with the value returned by the setNewUserID method
-        try (FileWriter fileWriter = new FileWriter("database/UserData.txt", true)) {  // Try block to write user information to the file UserData.txt in the database folder 
-            fileWriter.write(uid + " $ " + name + " $ " + username + " $ " + age + " $ " + gender + " $ " + nidOrBid + " $ " + password + System.lineSeparator());    // Writing user information to the file in a specific format to read later on easily 
-            return true;    // Returning true if the user is successfully registered 
-        } catch (IOException e) {   // Catch block to catch any exceptions that occur while writing to the file 
-            e.printStackTrace();    // Printing the stack trace of the exception 
-            return false;   // Returning false if the user is not successfully registered 
+    // Registering the user
+    public boolean registerUser() {
+        int uid = setNewUserID();
+        try (FileWriter fileWriter = new FileWriter("database/UserData.txt", true)) {
+            fileWriter.write(uid + " $ " + name + " $ " + username + " $ " + age + " $ " + gender + " $ " + nidOrBid + " $ " + password + System.lineSeparator());  // Writing the user data to the file
+            return true;
+        } catch (IOException e) {   // Catching the IOException if any
+            e.printStackTrace();    // Printing the stack trace
+            return false;
         }
     }
 }

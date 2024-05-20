@@ -1,8 +1,9 @@
-1 $ images/apartment-1.jpg $ 900 $ 8000 $ Available $ 32/6, Block: C, Bashundhara $ 1 big master bedroom with attached washroom and balcony. (Sharing Possible)
+1 $ images/apartment-1.jpg $ 900 $ 8000 $ Available $ 31/6, Block: C, Bashundhara $ 1 big master bedroom with attached washroom, kitchen and balcony. (Sharing Possible)
 2 $ images/apartment-2.jpg $ 1100 $ 10000 $ Rented $ 22/4, Block: C, Bashundhara $ New Luxury sami- furnish. 3 bedrooms, 4 out of 3 bed attest bathrooms and belkoni. Separate dining, drawing, kitchen.
 3 $ images/apartment-3.jpg $ 850 $ 14000 $ Under Maintenance $ Ka-98/1, Kalachandpur, Gulshan $ Duplex semi furnished
 4 $ images/apartment-4.jpg $ 1200 $ 7890 $ Available $ 32/6, Block: C, Bashundhara $ For Male bachelor only
 5 $ images/apartment-5.jpg $ 950 $ 20000 $ Available $ 32/6, Block: C, Bashundhara $ New Luxury Duplex  flat 
-6 $ images/apartment-6.jpg $ 1015 $ 15000 $ Under Maintenance $ 32/6, Block: C, Bashundhara $ Semi Furnished 
+6 $ images/apartment-6.jpg $ 1015 $ 15000 $ Rented $ 32/6, Block: C, Bashundhara $ Semi Furnished 
 7 $ images/apartment-7.jpg $ 700 $ 15000 $ Rented $ Ka-98/1, Kalachandpur, Gulshan $ 1 bed is available with attach washroom
-8 $ images/apartment-8.jpg $ 4000 $ 50000 $ Available $ House - 86, Road - 55, Gulshan 2 $ Pets welcomed! Roof top pool and more!
+8 $ images/apartment-8.jpg $ 4000 $ 50000 $ Rented $ House - 86, Road - 55, Gulshan 2 $ Pets welcomed! Roof top pool and more!
+9 $ images/apartment-9.jpg $ 9874 $ 70000 $ Available $ Cha-70/2, Kola Bhavan $ 4 bedrooms, library room, prayer room, dining, kitchen, 6 bathrooms and balconies

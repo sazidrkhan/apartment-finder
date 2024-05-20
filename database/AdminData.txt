@@ -1,3 +1,1 @@
-1 $ Sazid R Khan $ sazidrkhan $ 54 $ Male $ 12341234123423435 $ nothing
-2 $ Montarin R Joust $ joust $ 19 $ Female $ 12341234465423435 $ nothing
-3 $ Saif R Khan $ saifrkhan $ 29 $ Male $ 88888888888888888 $ 88888888
+1 $ Admin $ admin $ 88 $ Male $ 88888888888888888 $ nothing
