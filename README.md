@@ -29,7 +29,7 @@ Apartment Finder is a robust Java Swing-based application designed to simplify t
 2. **Clone the Repository:**
 
     ```bash
-    git clone https://github.com/yourusername/apartment-finder.git
+    git clone https://github.com/sazidrkhan/apartment-finder.git
     cd apartment-finder
     ```
 
